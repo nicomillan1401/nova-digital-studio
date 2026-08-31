@@ -1,0 +1,48 @@
+---
+import Button from '../Button.astro';
+import { hero } from '../../data/site';
+---
+
+<section id="inicio" class="relative overflow-hidden pt-40 pb-24 sm:pt-52 sm:pb-32">
+  <div class="mx-auto max-w-6xl px-6 sm:px-8">
+    <p
+      data-hero-item
+      class="text-ink-muted font-sans text-xs font-medium tracking-[0.2em] uppercase"
+    >
+      {hero.eyebrow}
+    </p>
+
+    <h1
+      class="font-display text-ink mt-6 text-[clamp(2.75rem,9vw,6.75rem)] leading-[0.98] font-medium tracking-tight"
+    >
+      {
+        hero.headline.map((line) => (
+          <span class="reveal-line-mask block">
+            <span data-hero-line class="block">
+              {line}
+            </span>
+          </span>
+        ))
+      }
+    </h1>
+
+    <p data-hero-item class="text-ink-muted mt-8 max-w-xl font-sans text-lg sm:text-xl">
+      {hero.sub}
+    </p>
+
+    <div data-hero-item class="mt-10 flex flex-wrap items-center gap-4">
+      {
+        hero.ctas.map((cta) => (
+          <Button
+            href={cta.href}
+            variant={cta.variant}
+            size="lg"
+            magnetic={cta.variant === 'primary'}
+          >
+            {cta.label}
+          </Button>
+        ))
+      }
+    </div>
+  </div>
+</section>

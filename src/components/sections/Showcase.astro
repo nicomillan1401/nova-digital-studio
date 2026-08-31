@@ -1,0 +1,57 @@
+---
+import { ArrowRight } from '@lucide/astro';
+import { work } from '../../data/site';
+
+const numeralColor: Record<(typeof work)[number]['tone'], string> = {
+  ink: 'text-paper/10',
+  accent: 'text-paper/10',
+  dim: 'text-ink/10',
+};
+---
+
+<section id="trabajo" class="mx-auto max-w-6xl px-6 py-28 sm:px-8 sm:py-40">
+  <div
+    data-reveal
+    class="border-ink/10 flex flex-wrap items-end justify-between gap-4 border-b pb-8"
+  >
+    <h2 class="font-display text-ink text-4xl tracking-tight sm:text-5xl">Trabajo seleccionado</h2>
+    <p class="text-ink-muted font-sans text-sm">Ejemplos ilustrativos — no clientes reales.</p>
+  </div>
+
+  <div class="mt-4 flex flex-col gap-20 sm:gap-28">
+    {
+      work.map((item, index) => (
+        <article
+          class={`group flex flex-col gap-8 sm:items-center sm:gap-14 ${
+            index % 2 === 1 ? 'sm:flex-row-reverse' : 'sm:flex-row'
+          }`}
+        >
+          <div class="overflow-hidden rounded-2xl sm:w-1/2">
+            <div
+              data-image-reveal
+              class={`visual-panel visual-panel--${item.tone} aspect-[4/3] w-full rounded-2xl transition-transform duration-500 ease-[var(--ease-out-strong)] group-hover:scale-[1.03]`}
+            >
+              <span
+                class={`font-display pointer-events-none absolute right-4 bottom-4 text-8xl leading-none select-none ${numeralColor[item.tone]}`}
+              >
+                {item.year}
+              </span>
+            </div>
+          </div>
+
+          <div data-reveal class="sm:w-1/2">
+            <p class="text-accent-600 font-sans text-xs font-medium tracking-[0.15em] uppercase">
+              {item.category} — {item.year}
+            </p>
+            <h3 class="font-display text-ink mt-3 text-3xl sm:text-4xl">{item.title}</h3>
+            <p class="text-ink-muted mt-4 max-w-md font-sans">{item.description}</p>
+            <span class="interactive-lift text-ink mt-6 inline-flex items-center gap-2 font-sans text-sm font-medium">
+              Ver caso
+              <ArrowRight class="h-4 w-4" />
+            </span>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</section>

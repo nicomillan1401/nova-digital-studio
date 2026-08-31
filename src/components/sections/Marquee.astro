@@ -1,0 +1,20 @@
+---
+import { marqueeWords } from '../../data/site';
+
+// Duplicado exacto: la animación mueve translateX(-50%), así que las dos
+// mitades deben ser idénticas para que el loop sea imperceptible.
+const words = [...marqueeWords, ...marqueeWords];
+---
+
+<div class="border-ink/10 bg-paper-dim overflow-hidden border-y py-5" aria-hidden="true">
+  <div class="marquee-track">
+    {
+      words.map((word) => (
+        <span class="flex shrink-0 items-center gap-10 pr-10 whitespace-nowrap">
+          <span class="font-display text-ink-muted text-xl italic">{word}</span>
+          <span class="text-accent-500">✦</span>
+        </span>
+      ))
+    }
+  </div>
+</div>

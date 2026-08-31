@@ -1,0 +1,37 @@
+---
+import { process } from '../../data/site';
+---
+
+<section id="proceso" class="border-ink/10 border-t">
+  <div class="mx-auto max-w-6xl px-6 py-28 sm:px-8 sm:py-40">
+    <div data-reveal class="max-w-xl">
+      <p class="text-accent-600 font-sans text-xs font-medium tracking-[0.2em] uppercase">
+        Cómo trabajamos
+      </p>
+      <h2 class="font-display text-ink mt-4 text-4xl tracking-tight sm:text-5xl">
+        Un proceso claro, de principio a fin.
+      </h2>
+    </div>
+
+    <div data-progress-track class="relative mt-20">
+      <div class="bg-ink/10 absolute top-0 left-0 h-px w-full"></div>
+      <div
+        data-progress-fill
+        class="bg-accent-500 absolute top-0 left-0 h-px w-full origin-left scale-x-0"
+      >
+      </div>
+
+      <div data-reveal-group class="grid grid-cols-1 gap-12 pt-10 sm:grid-cols-4 sm:gap-8">
+        {
+          process.map((step) => (
+            <div data-reveal-item>
+              <span class="font-display text-accent-500 text-2xl">{step.n}</span>
+              <h3 class="font-display text-ink mt-4 text-xl">{step.title}</h3>
+              <p class="text-ink-muted mt-3 font-sans text-sm">{step.desc}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

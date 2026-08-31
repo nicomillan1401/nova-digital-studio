@@ -1,0 +1,75 @@
+---
+import { Menu } from '@lucide/astro';
+import Button from './Button.astro';
+import { navLinks, siteConfig } from '../data/site';
+---
+
+<header data-navbar class="border-ink/10 bg-paper/70 sticky top-0 z-50 border-b backdrop-blur-md">
+  <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-5 sm:px-8">
+    <a href="#inicio" class="flex items-baseline gap-2">
+      <span class="font-display text-ink text-lg tracking-tight">{siteConfig.name}</span>
+      <span
+        class="text-ink-muted hidden font-sans text-xs font-medium tracking-[0.15em] uppercase sm:inline"
+      >
+        {siteConfig.subtitle}
+      </span>
+    </a>
+
+    <ul class="hidden items-center gap-10 md:flex">
+      {
+        navLinks.map((link) => (
+          <li>
+            <a href={link.href} class="nav-link text-ink-muted hover:text-ink font-sans text-sm">
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="hidden md:block">
+      <Button href="#contacto" variant="ghost" size="sm"> Iniciar proyecto </Button>
+    </div>
+
+    <button
+      data-menu-toggle
+      type="button"
+      class="interactive-lift text-ink inline-flex items-center justify-center rounded-md p-2 md:hidden"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <Menu class="h-6 w-6" />
+    </button>
+  </nav>
+
+  <div
+    id="mobile-menu"
+    data-mobile-menu
+    class="border-ink/10 bg-paper invisible absolute inset-x-0 top-full border-t opacity-0 md:hidden"
+  >
+    <ul class="flex flex-col gap-1 px-6 py-4">
+      {
+        navLinks.map((link) => (
+          <li data-mobile-link>
+            <a
+              href={link.href}
+              class="text-ink hover:bg-paper-dim block rounded-md px-3 py-2 font-sans text-sm font-medium"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+      <li data-mobile-link class="pt-2">
+        <Button href="#contacto" size="sm" class="w-full"> Iniciar proyecto </Button>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<script>
+  import { initNavbarMotion } from '../lib/motion/navbar';
+
+  initNavbarMotion(document);
+</script>

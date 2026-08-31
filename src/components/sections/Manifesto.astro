@@ -1,0 +1,30 @@
+---
+import { manifesto } from '../../data/site';
+---
+
+<section id="estudio" class="mx-auto max-w-4xl px-6 py-28 sm:px-8 sm:py-40">
+  <p data-reveal class="text-accent-600 font-sans text-xs font-medium tracking-[0.2em] uppercase">
+    {manifesto.eyebrow}
+  </p>
+
+  <p
+    data-manifesto-text
+    class="font-display text-ink mt-8 text-3xl leading-snug tracking-tight sm:text-4xl lg:text-5xl"
+  >
+    {manifesto.paragraph}
+  </p>
+
+  <div
+    data-reveal-group
+    class="border-ink/10 mt-20 grid grid-cols-1 gap-10 border-t pt-10 sm:grid-cols-3"
+  >
+    {
+      manifesto.stats.map((stat) => (
+        <div data-reveal-item>
+          <p class="font-display text-ink text-4xl">{stat.value}</p>
+          <p class="text-ink-muted mt-2 font-sans text-sm">{stat.label}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>

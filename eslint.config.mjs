@@ -1,0 +1,18 @@
+// @ts-check
+import eslintPluginAstro from 'eslint-plugin-astro';
+import globals from 'globals';
+
+export default [
+  {
+    ignores: ['dist/**', '.astro/**', 'node_modules/**'],
+  },
+  ...eslintPluginAstro.configs.recommended,
+  {
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+    },
+  },
+];

@@ -1,0 +1,63 @@
+---
+/**
+ * Botón reutilizable: 3 variantes, 3 tamaños.
+ * Se renderiza como <a> cuando recibe `href`, o como <button> en caso contrario.
+ * `magnetic` activa el hover magnético (ver src/lib/motion/magnetic.ts) —
+ * úsalo solo en 1-2 CTAs primarios, nunca en botones de uso frecuente.
+ */
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'ghost' | 'invert';
+  size?: 'sm' | 'md' | 'lg';
+  type?: 'button' | 'submit' | 'reset';
+  magnetic?: boolean;
+  /** Abre el enlace en una pestaña nueva (enlaces externos: WhatsApp, redes). */
+  external?: boolean;
+  class?: string;
+}
+
+const {
+  href,
+  variant = 'primary',
+  size = 'md',
+  type = 'button',
+  magnetic = false,
+  external = false,
+  class: className = '',
+} = Astro.props;
+
+const base =
+  'interactive-lift inline-flex items-center justify-center gap-2 rounded-full font-sans font-medium transition-[color,background-color,border-color] duration-150 ease-[var(--ease-out-strong)] active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500';
+
+const variants = {
+  primary: 'bg-ink text-paper hover:bg-accent-600',
+  ghost: 'border border-ink/20 text-ink hover:border-ink/40',
+  invert: 'bg-paper text-ink hover:bg-accent-200',
+};
+
+const sizes = {
+  sm: 'px-4 py-2 text-sm',
+  md: 'px-5 py-2.5 text-base',
+  lg: 'px-7 py-3.5 text-base',
+};
+
+const classes = [base, variants[variant], sizes[size], className].join(' ');
+---
+
+{
+  href ? (
+    <a
+      href={href}
+      class={classes}
+      data-magnetic={magnetic ? '' : undefined}
+      target={external ? '_blank' : undefined}
+      rel={external ? 'noopener noreferrer' : undefined}
+    >
+      <slot />
+    </a>
+  ) : (
+    <button type={type} class={classes} data-magnetic={magnetic ? '' : undefined}>
+      <slot />
+    </button>
+  )
+}
