@@ -127,10 +127,12 @@ button:focus-visible {
 .experiment-panel {
   position: relative;
   overflow: hidden;
+  /* 9% (no 4%): a esta opacidad tan baja el patrón era casi invisible sobre
+     fondos oscuros, contribuyendo a que el panel se leyera como vacío. */
   background-image: repeating-linear-gradient(
     90deg,
-    rgb(250 246 240 / 4%) 0px,
-    rgb(250 246 240 / 4%) 1px,
+    rgb(250 246 240 / 9%) 0px,
+    rgb(250 246 240 / 9%) 1px,
     transparent 1px,
     transparent 10px
   );
@@ -143,11 +145,17 @@ button:focus-visible {
   cliché de "morado de IA genérica" que este sitio evita a propósito.
 */
 .experiment-panel--gold {
-  background-color: oklch(0.24 0.05 68);
+  background-color: oklch(0.3 0.07 68);
 }
 
+/*
+  Deliberadamente más claro que `--color-ground-raised` (no el mismo valor):
+  ese tono es el de la barra de navegador justo encima del panel — usarlo
+  aquí también hacía que el panel se fundiera con su propio chrome y se
+  leyera como espacio vacío en vez de contenido.
+*/
 .experiment-panel--raised {
-  background-color: var(--color-ground-raised);
+  background-color: oklch(0.28 0.03 255);
 }
 
 /* Ticker de servicios / marquee: movimiento constante → CSS, no GSAP. */

@@ -1,9 +1,15 @@
 ---
+import { Building2, UtensilsCrossed } from '@lucide/astro';
 import { work } from '../../data/site';
 
 const toneClass = {
   gold: 'experiment-panel--gold',
   raised: 'experiment-panel--raised',
+} as const;
+
+const iconComponent = {
+  'utensils-crossed': UtensilsCrossed,
+  'building-2': Building2,
 } as const;
 ---
 
@@ -31,37 +37,51 @@ const toneClass = {
         Mockup de navegador: barra de puntos + URL simulada + panel de
         contenido. Cada tarjeta se etiqueta como concepto interno — nunca
         se presenta como cliente real.
+
+        Sin fotografía real que mostrar (no hay clientes que fabricar), el
+        panel es un placeholder EXPLÍCITO: ícono grande de la categoría +
+        etiqueta "Vista conceptual" — nunca un rectángulo de color sólido,
+        que a este nivel de contraste se lee como espacio vacío o imagen
+        rota, no como una decisión de diseño.
       */
     }
     <div class="mt-14 grid gap-10 sm:grid-cols-2">
       {
-        work.experiments.map((item) => (
-          <article>
-            <div class="border-cloud/10 overflow-hidden rounded-lg border">
-              <div class="border-cloud/10 bg-ground-raised flex items-center gap-3 border-b px-4 py-2.5">
-                <div class="flex gap-1.5">
-                  <span class="bg-cloud/20 h-2 w-2 rounded-full" />
-                  <span class="bg-cloud/20 h-2 w-2 rounded-full" />
-                  <span class="bg-cloud/20 h-2 w-2 rounded-full" />
+        work.experiments.map((item) => {
+          const Icon = iconComponent[item.icon];
+          return (
+            <article>
+              <div class="border-cloud/10 overflow-hidden rounded-lg border">
+                <div class="border-cloud/10 bg-ground-raised flex items-center gap-3 border-b px-4 py-2.5">
+                  <div class="flex gap-1.5">
+                    <span class="bg-cloud/20 h-2 w-2 rounded-full" />
+                    <span class="bg-cloud/20 h-2 w-2 rounded-full" />
+                    <span class="bg-cloud/20 h-2 w-2 rounded-full" />
+                  </div>
+                  <div class="border-cloud/10 bg-ground flex-1 rounded-full border px-3 py-1">
+                    <span class="text-cloud-muted font-mono text-[11px]">{item.domain}</span>
+                  </div>
                 </div>
-                <div class="border-cloud/10 bg-ground flex-1 rounded-full border px-3 py-1">
-                  <span class="text-cloud-muted font-mono text-[11px]">{item.domain}</span>
+                <div
+                  data-image-reveal
+                  class={`experiment-panel relative flex aspect-[16/10] w-full items-center justify-center ${toneClass[item.tone]}`}
+                >
+                  <Icon class="text-cloud/25 h-16 w-16 sm:h-20 sm:w-20" stroke-width={1.25} />
+                  <span class="text-cloud/40 absolute bottom-4 left-1/2 -translate-x-1/2 font-mono text-[10px] tracking-[0.2em] uppercase">
+                    Vista conceptual
+                  </span>
                 </div>
               </div>
-              <div
-                data-image-reveal
-                class={`experiment-panel aspect-[16/10] w-full ${toneClass[item.tone]}`}
-              />
-            </div>
 
-            <div data-reveal class="mt-5">
-              <p class="text-gold-500 font-mono text-[11px] tracking-[0.12em] uppercase">
-                Concepto — {item.category}
-              </p>
-              <p class="text-cloud-muted mt-2 font-sans text-sm">{item.description}</p>
-            </div>
-          </article>
-        ))
+              <div data-reveal class="mt-5">
+                <p class="text-gold-500 font-mono text-[11px] tracking-[0.12em] uppercase">
+                  Concepto — {item.category}
+                </p>
+                <p class="text-cloud-muted mt-2 font-sans text-sm">{item.description}</p>
+              </div>
+            </article>
+          );
+        })
       }
     </div>
   </div>
