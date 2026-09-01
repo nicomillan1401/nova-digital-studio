@@ -54,3 +54,4 @@ coverage/
 .codex/
 .impeccable/
 skills-lock.json
+.vercel

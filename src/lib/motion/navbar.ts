@@ -16,13 +16,18 @@
  */
 import { gsap, ScrollTrigger, DURATION, EASE, STAGGER } from './config';
 
+/*
+  Colores del fondo navy de NOVA (aprox. sRGB de --color-ground): GSAP
+  tween necesita un formato que pueda interpolar de forma fiable, por eso
+  van en rgba() y no oklch().
+*/
 const SCROLLED_STYLE = {
-  backgroundColor: 'rgba(250, 250, 248, 0.92)',
-  boxShadow: '0 1px 0 0 rgba(25, 22, 20, 0.06), 0 12px 24px -16px rgba(25, 22, 20, 0.18)',
+  backgroundColor: 'rgba(11, 14, 22, 0.92)',
+  boxShadow: '0 1px 0 0 rgba(0, 0, 0, 0.3), 0 12px 24px -16px rgba(0, 0, 0, 0.5)',
 };
 
 const TOP_STYLE = {
-  backgroundColor: 'rgba(250, 250, 248, 0.7)',
+  backgroundColor: 'rgba(11, 14, 22, 0.55)',
   boxShadow: '0 0 0 0 rgba(0, 0, 0, 0)',
 };
 
@@ -100,6 +105,7 @@ export function initNavbarMotion(root: ParentNode = document): gsap.Context {
         const setOpen = (open: boolean) => {
           isOpen = open;
           toggle.setAttribute('aria-expanded', String(open));
+          toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
           // Cierre ligeramente más rápido que la apertura: la decisión del
           // usuario (abrir) puede tomarse con calma; la respuesta del sistema
           // al cerrar debe sentirse inmediata.

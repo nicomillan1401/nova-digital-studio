@@ -1,25 +1,35 @@
 ---
-import { Menu } from '@lucide/astro';
+import { Menu, X } from '@lucide/astro';
 import Button from './Button.astro';
-import { navLinks, siteConfig } from '../data/site';
+import { navLinks } from '../data/site';
 ---
 
-<header data-navbar class="border-ink/10 bg-paper/70 sticky top-0 z-50 border-b backdrop-blur-md">
-  <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-5 sm:px-8">
-    <a href="#inicio" class="flex items-baseline gap-2">
-      <span class="font-display text-ink text-lg tracking-tight">{siteConfig.name}</span>
-      <span
-        class="text-ink-muted hidden font-sans text-xs font-medium tracking-[0.15em] uppercase sm:inline"
-      >
-        {siteConfig.subtitle}
-      </span>
+<!--
+  Wordmark temporal: el logo definitivo de NOVA aún no está aprobado. Este
+  es un wordmark tipográfico deliberadamente simple (Unbounded + punto en
+  dorado), fácil de reemplazar por un logo real sin tocar el layout — el
+  slot ocupa un `<a>` de altura fija, no una imagen con proporciones fijas.
+-->
+<header
+  data-navbar
+  class="border-cloud/10 bg-ground/70 fixed top-0 z-50 w-full border-b backdrop-blur-md"
+>
+  <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 sm:px-8">
+    <a
+      href="#inicio"
+      class="font-display text-cloud flex items-baseline text-xl font-bold tracking-tight"
+    >
+      NOVA<span class="text-gold-500">.</span>
     </a>
 
-    <ul class="hidden items-center gap-10 md:flex">
+    <ul class="hidden items-center gap-9 md:flex">
       {
         navLinks.map((link) => (
           <li>
-            <a href={link.href} class="nav-link text-ink-muted hover:text-ink font-sans text-sm">
+            <a
+              href={link.href}
+              class="nav-link text-cloud-muted hover:text-cloud font-sans text-sm"
+            >
               {link.label}
             </a>
           </li>
@@ -28,41 +38,41 @@ import { navLinks, siteConfig } from '../data/site';
     </ul>
 
     <div class="hidden md:block">
-      <Button href="#contacto" variant="ghost" size="sm"> Iniciar proyecto </Button>
+      <Button href="#contacto" variant="ghost" size="sm"> Crear mi proyecto </Button>
     </div>
 
     <button
       data-menu-toggle
       type="button"
-      class="interactive-lift text-ink inline-flex items-center justify-center rounded-md p-2 md:hidden"
+      class="interactive-lift group text-cloud inline-flex items-center justify-center rounded-md p-2 md:hidden"
       aria-label="Abrir menú"
       aria-expanded="false"
       aria-controls="mobile-menu"
     >
-      <Menu class="h-6 w-6" />
+      <Menu class="h-6 w-6 group-aria-expanded:hidden" />
+      <X class="hidden h-6 w-6 group-aria-expanded:block" />
     </button>
   </nav>
 
   <div
     id="mobile-menu"
     data-mobile-menu
-    class="border-ink/10 bg-paper invisible absolute inset-x-0 top-full border-t opacity-0 md:hidden"
+    class="border-cloud/10 bg-ground invisible absolute inset-x-0 top-full border-b px-6 pt-2 pb-6 opacity-0 md:hidden"
   >
-    <ul class="flex flex-col gap-1 px-6 py-4">
+    <ul class="flex flex-col gap-1">
       {
         navLinks.map((link) => (
-          <li data-mobile-link>
-            <a
-              href={link.href}
-              class="text-ink hover:bg-paper-dim block rounded-md px-3 py-2 font-sans text-sm font-medium"
-            >
+          <li>
+            <a data-mobile-link href={link.href} class="text-cloud block py-3 font-sans text-lg">
               {link.label}
             </a>
           </li>
         ))
       }
-      <li data-mobile-link class="pt-2">
-        <Button href="#contacto" size="sm" class="w-full"> Iniciar proyecto </Button>
+      <li class="pt-3">
+        <Button data-mobile-link href="#contacto" variant="primary" size="md" class="w-full">
+          Crear mi proyecto
+        </Button>
       </li>
     </ul>
   </div>

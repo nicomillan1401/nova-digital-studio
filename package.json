@@ -1,7 +1,7 @@
 {
-  "name": "nova-web-template",
+  "name": "nova-digital-studio-site",
   "version": "0.1.0",
-  "description": "Plantilla base de NOVA Web para sitios de negocios locales, restaurantes, marcas y servicios.",
+  "description": "Sitio oficial de NOVA Digital Studio — diseño y desarrollo web para negocios y marcas ambiciosos.",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -13,14 +13,20 @@
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "diseño web",
+    "desarrollo web",
+    "estudio digital",
+    "venezuela"
+  ],
+  "author": "NOVA Digital Studio",
   "license": "UNLICENSED",
   "type": "module",
   "private": true,
   "dependencies": {
-    "@fontsource-variable/fraunces": "^5.3.0",
-    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource-variable/manrope": "^5.3.0",
+    "@fontsource-variable/unbounded": "^5.3.0",
+    "@fontsource/ibm-plex-mono": "^5.2.0",
     "@lucide/astro": "^1.37.0",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.2.9",
@@ -37,5 +43,9 @@
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "typescript": "^6.0.3"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "fsevents@2.3.3": true
   }
 }

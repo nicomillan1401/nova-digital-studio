@@ -1,155 +1,193 @@
 /**
- * Contenido de la demo de la plantilla: representa a NOVA Digital Studio
- * (Caracas, Venezuela) mostrando su propia capacidad de diseño/desarrollo.
- * Los casos de "Trabajo seleccionado" son ilustrativos, no clientes reales
- * (ver aviso en la sección correspondiente).
+ * Contenido real del sitio de NOVA Digital Studio. A diferencia del
+ * template de clientes (`nova-web`), este archivo NO es un placeholder:
+ * datos de contacto y copy son los reales del estudio.
  *
- * Al clonar `_template` para un cliente nuevo, sustituye todo este archivo
- * por la información real de ese negocio.
+ * Copy base rescatado y adaptado de versiones previas del sitio
+ * (~/Downloads/NOVA_Digital_Studio_*.html) — se conservó lo que ya
+ * funcionaba (headlines, estructura de "01/02/03" como narrativa real de
+ * la página, la honestidad del portafolio como conceptos) y se reescribió
+ * lo que sonaba genérico o geográficamente limitante.
+ *
+ * El logo definitivo de NOVA todavía no está aprobado — el wordmark en
+ * Navbar/Footer es tipográfico e intencionalmente temporal. No se ha
+ * inventado ningún cliente, resultado o cifra.
  */
 
 export const siteConfig = {
-  name: 'NOVA Digital Studio',
-  /** Descriptor corto mostrado junto al logotipo (navbar) y en el footer. */
-  subtitle: 'Web Design',
-  tagline: 'Estudio de diseño y desarrollo web',
+  name: 'NOVA',
+  fullName: 'NOVA Digital Studio',
   description:
-    'Creamos presencia digital para emprendimientos y negocios en Venezuela y Latinoamérica: diseño de marca, desarrollo web y estrategia digital con estándares internacionales.',
-  url: 'https://example.com',
+    'NOVA es un estudio digital que diseña y desarrolla sitios web distintivos para negocios y marcas ambiciosos, sin importar dónde estén.',
+  url: 'https://novadigital.studio',
   contact: {
-    email: 'hola@novadigital.studio',
-    /** Único número de contacto del sitio: se usa en el footer y en el CTA final (ver `whatsappLink`). */
-    whatsapp: '+58 412 6319354',
-    address: 'Caracas, Venezuela',
-  },
-  social: {
-    instagram: 'https://instagram.com/ejemplo',
-    facebook: 'https://facebook.com/ejemplo',
+    email: 'ventasnovadigitalstudio@gmail.com',
+    whatsapp: '+58 412 631 9354',
+    instagramHandle: '@soynova.web',
+    instagramUrl: 'https://instagram.com/soynova.web',
   },
 } as const;
 
-/** Link directo a WhatsApp a partir del número configurado (solo dígitos). */
-export const whatsappLink = `https://wa.me/${siteConfig.contact.whatsapp.replace(/\D/g, '')}`;
+const waNumber = siteConfig.contact.whatsapp.replace(/\D/g, '');
+
+/** Link de WhatsApp con mensaje pre-rellenado según el contexto del CTA — reduce fricción real, no decorativo. */
+function waLink(message: string) {
+  return `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
+}
 
 export const navLinks = [
-  { label: 'Estudio', href: '#estudio' },
+  { label: 'Servicios', href: '#servicios' },
   { label: 'Trabajo', href: '#trabajo' },
   { label: 'Proceso', href: '#proceso' },
-  { label: 'Contacto', href: '#contacto' },
+  { label: 'Studio', href: '#studio' },
 ] as const;
 
 export const hero = {
-  eyebrow: 'Estudio digital — Caracas, Venezuela',
-  /**
-   * Cada elemento es una línea con salto de línea intencional (decisión de
-   * diseño editorial: no dejar que el texto reflowee de forma orgánica en
-   * el titular principal). El resto del texto sí usa reveal por línea
-   * detectada en tiempo real — ver `src/lib/motion/textReveal.ts`.
-   */
-  headline: ['Convertimos negocios', 'en marcas digitales', 'imposibles de ignorar.'],
-  sub: 'Creamos presencia digital para emprendimientos y negocios en Venezuela y Latinoamérica que quieren verse como lo que son: la mejor opción en su categoría.',
+  eyebrow: 'WEB DESIGN · DIGITAL STUDIO',
+  headline: ['Haz que tu negocio', 'se vea grande.'],
+  sub: 'No se trata solo de tener una página web. Se trata de que, cuando alguien encuentre tu negocio, piense: "esto es exactamente lo que estaba buscando."',
   ctas: [
-    { label: 'Ver trabajo', href: '#trabajo', variant: 'primary' as const },
-    { label: 'Iniciar un proyecto', href: '#contacto', variant: 'ghost' as const },
+    {
+      label: 'Cuéntanos tu idea',
+      href: waLink('Hola NOVA, quiero crear una web para mi negocio'),
+      variant: 'primary' as const,
+      external: true,
+    },
+    { label: 'Ver conceptos', href: '#trabajo', variant: 'ghost' as const, external: false },
+  ],
+  /** Franja de proceso en miniatura bajo los CTAs — anticipa la sección Proceso sin repetirla. */
+  meta: [
+    { n: '01', label: 'Estrategia' },
+    { n: '02', label: 'Diseño' },
+    { n: '03', label: 'Desarrollo' },
+    { n: '04', label: 'Lanzamiento' },
   ],
 } as const;
 
 export const marqueeWords = [
-  'Diseño de marca',
-  'Desarrollo web',
-  'Motion design',
-  'Estrategia digital',
-  'Identidad visual',
-  'SEO técnico',
+  'Diseño web',
+  'Desarrollo a medida',
+  'Landing pages',
+  'Motion & interacción',
+  'Sitios para restaurantes',
+  'Identidad digital',
 ] as const;
 
-export const manifesto = {
-  eyebrow: 'El estudio',
-  paragraph:
-    'Creemos que un sitio web no es un trámite, es la primera impresión de tu negocio. Por eso no partimos de un componente reciclado: partimos de tu marca, tu audiencia y el problema real que tu sitio tiene que resolver. Trabajamos con emprendimientos y negocios de Venezuela y Latinoamérica para construir una presencia digital rápida, cuidada al detalle y hecha para durar.',
-  stats: [
-    { value: '40+', label: 'proyectos entregados' },
-    { value: '98', label: 'puntaje promedio de performance' },
-    { value: '6 años', label: 'de oficio' },
+export const services = {
+  eyebrow: '01 / Lo que hacemos',
+  headline: ['Una web que', 'trabaja por ti.'],
+  intro:
+    'Diseñamos la presencia digital completa de negocios que quieren dejar de parecer pequeños en internet. Desde la primera impresión hasta el botón de contacto.',
+  items: [
+    {
+      n: '01 / WEB',
+      icon: '↗',
+      title: 'Web Design',
+      desc: 'Diseño visual, estructura y experiencia pensados para que tu cliente entienda, confíe y actúe.',
+    },
+    {
+      n: '02 / BRAND',
+      icon: '✦',
+      title: 'Brand Experience',
+      desc: 'Convertimos lo que hace especial a tu negocio en una identidad digital reconocible.',
+    },
+    {
+      n: '03 / STRATEGY',
+      icon: '◎',
+      title: 'Digital Strategy',
+      desc: 'Ordenamos el mensaje, el contenido y los recorridos para que la web tenga un propósito.',
+    },
+    {
+      n: '04 / GROWTH',
+      icon: '↗',
+      title: 'Growth Ready',
+      desc: 'Dejamos una base lista para campañas, reservas, ventas, contenido y nuevas etapas.',
+    },
+  ],
+  manifesto: [
+    { strong: 'NO PLANTILLAS.', rest: 'Una experiencia hecha para tu negocio.' },
+    { strong: 'NO RUIDO.', rest: 'Diseño con intención.' },
+    { strong: 'HECHO A MANO.', rest: 'Cada detalle, decidido a propósito.' },
   ],
 } as const;
 
-export const work = [
-  {
-    year: '2025',
-    category: 'Identidad + Web',
-    title: 'Casa Marea',
-    description:
-      'Restaurante de cocina de autor en la costa. Sistema visual completo y sitio con reservaciones.',
-    tone: 'ink',
-  },
-  {
-    year: '2024',
-    category: 'E-commerce',
-    title: 'Terra Studio',
-    description:
-      'Marca de cerámica artesanal. Tienda en línea con un enfoque editorial, no de catálogo genérico.',
-    tone: 'accent',
-  },
-  {
-    year: '2024',
-    category: 'Plataforma web',
-    title: 'Nimbus Clínica',
-    description:
-      'Sistema de citas y presencia digital para una red de clínicas con múltiples sedes.',
-    tone: 'dim',
-  },
-] as const;
+/**
+ * "Trabajo": NOVA está construyendo su portafolio activamente. Estos son
+ * conceptos/exploraciones de dirección — nunca clientes reales, nunca
+ * resultados inventados. Se presentan así, sin ambigüedad.
+ */
+export const work = {
+  eyebrow: '02 / Conceptos',
+  headline: ['Así puede', 'verse tu marca.'],
+  intro:
+    'Estos son conceptos visuales: ejemplos del tipo de dirección que podemos crear para restaurantes, marcas y negocios locales. No son clientes de NOVA.',
+  experiments: [
+    {
+      category: 'Restaurante',
+      description:
+        'Sistema visual y estructura de sitio para un restaurante con reservaciones — foco en fotografía de producto y un menú fácil de escanear en móvil.',
+      domain: 'concepto-restaurante.nova',
+      tone: 'gold' as const,
+    },
+    {
+      category: 'Servicios profesionales',
+      description:
+        'Sitio institucional para un negocio de servicios con múltiples sedes — jerarquía clara de información y un formulario de contacto que no se siente burocrático.',
+      domain: 'concepto-servicios.nova',
+      tone: 'raised' as const,
+    },
+  ],
+} as const;
 
-export const process = [
-  {
-    n: '01',
-    title: 'Descubrimiento',
-    desc: 'Entendemos el negocio, la audiencia y el problema real antes de abrir cualquier herramienta de diseño.',
-  },
-  {
-    n: '02',
-    title: 'Diseño',
-    desc: 'Exploramos dirección visual y la validamos contigo antes de escribir una sola línea de código.',
-  },
-  {
-    n: '03',
-    title: 'Desarrollo',
-    desc: 'Construimos sobre una base rápida, accesible y fácil de mantener a largo plazo.',
-  },
-  {
-    n: '04',
-    title: 'Lanzamiento',
-    desc: 'Publicamos, medimos resultados y dejamos el proyecto listo para crecer contigo.',
-  },
-] as const;
+export const process = {
+  eyebrow: '03 / Cómo trabajamos',
+  headline: ['Del "tengo una idea"', 'al "ya está online".'],
+  steps: [
+    {
+      n: '01 — DESCUBRIR',
+      title: 'Entendemos',
+      desc: 'Qué haces, para quién lo haces y qué necesitas conseguir.',
+    },
+    {
+      n: '02 — DISEÑAR',
+      title: 'Le damos forma',
+      desc: 'Convertimos la estrategia en una dirección visual que tenga personalidad.',
+    },
+    {
+      n: '03 — CONSTRUIR',
+      title: 'Lo hacemos real',
+      desc: 'Desarrollamos la experiencia para móvil, tablet y escritorio.',
+    },
+    {
+      n: '04 — LANZAR',
+      title: 'Lo ponemos a trabajar',
+      desc: 'Revisamos, publicamos y dejamos todo listo para el siguiente paso.',
+    },
+  ],
+} as const;
 
-export const capabilities = [
-  {
-    n: '01',
-    title: 'Diseño de marca',
-    desc: 'Identidad visual, tono de voz y un sistema de diseño coherente en cada punto de contacto.',
-  },
-  {
-    n: '02',
-    title: 'Desarrollo web',
-    desc: 'Sitios rápidos y mantenibles, construidos con tecnología moderna y buenas prácticas.',
-  },
-  {
-    n: '03',
-    title: 'Motion e interacción',
-    desc: 'Animación con intención: cada movimiento comunica algo, nada se mueve porque sí.',
-  },
-  {
-    n: '04',
-    title: 'Estrategia digital',
-    desc: 'Contenido, SEO técnico y estructura pensados para convertir visitas en clientes.',
-  },
-] as const;
+export const studio = {
+  eyebrow: '04 / NOVA Studio',
+  headline: 'Tu negocio ya tiene algo que contar.',
+  headlineAccent: 'Nosotros hacemos que se note.',
+  paragraphs: [
+    'NOVA nace para crear experiencias digitales para negocios que tienen algo bueno entre manos, pero todavía no lo están mostrando como deberían.',
+    'Nos obsesionan las primeras impresiones: el mensaje, la imagen, la navegación y ese pequeño detalle que hace que alguien quiera quedarse.',
+  ],
+  quote: 'Tu web puede ser el vendedor que nunca duerme. Hagamos que haga bien su trabajo.',
+} as const;
 
-export const cta = {
-  eyebrow: '¿Empezamos?',
-  headline: 'Hablemos de tu próximo proyecto.',
-  sub: 'Cuéntanos qué necesitas y te compartimos una propuesta clara, sin compromisos.',
-  buttonLabel: 'Escríbenos',
+export const contact = {
+  eyebrow: '05 / Empecemos',
+  headline: ['Tu próxima web', 'puede empezar hoy.'],
+  sub: 'Escríbenos directamente por WhatsApp. Cuéntanos qué negocio tienes, qué quieres mejorar y qué tienes en mente.',
+  buttonLabel: 'WhatsApp · +58 412 631 9354',
+  buttonHref: waLink('Hola NOVA, quiero hablar sobre mi proyecto'),
+  note: 'RESPUESTA DIRECTA, SIN INTERMEDIARIOS',
+} as const;
+
+/** CTA flotante persistente (esquina inferior, todas las páginas). */
+export const floatingWhatsapp = {
+  href: waLink('Hola NOVA, quiero información sobre una web'),
+  label: 'Contactar NOVA por WhatsApp',
 } as const;

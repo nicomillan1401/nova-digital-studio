@@ -1,0 +1,52 @@
+---
+import { AtSign, Mail } from '@lucide/astro';
+import Button from '../Button.astro';
+import { contact, siteConfig } from '../../data/site';
+---
+
+<section id="contacto" class="border-cloud/10 bg-ground-raised border-t py-28 sm:py-40">
+  <div class="mx-auto max-w-2xl px-6 text-center sm:px-8">
+    <p data-reveal class="text-gold-500 font-mono text-xs font-medium tracking-[0.2em] uppercase">
+      {contact.eyebrow}
+    </p>
+    <h2
+      data-reveal
+      class="font-display text-cloud mt-6 text-4xl leading-[1.02] font-bold tracking-tight sm:text-6xl"
+    >
+      {contact.headline.map((line) => <span class="block">{line}</span>)}
+    </h2>
+    <p data-reveal class="text-cloud-muted mx-auto mt-6 max-w-md font-sans">
+      {contact.sub}
+    </p>
+    <div data-reveal class="mt-10">
+      <Button href={contact.buttonHref} variant="primary" size="lg" magnetic external>
+        {contact.buttonLabel}
+      </Button>
+      <p class="text-cloud-muted mt-4 font-mono text-[11px] tracking-[0.14em] uppercase">
+        {contact.note}
+      </p>
+    </div>
+
+    <div
+      data-reveal
+      class="text-cloud-muted mt-10 flex flex-wrap items-center justify-center gap-6 font-sans text-sm"
+    >
+      <a
+        href={`mailto:${siteConfig.contact.email}`}
+        class="hover:text-cloud flex items-center gap-2"
+      >
+        <Mail class="h-4 w-4" />
+        {siteConfig.contact.email}
+      </a>
+      <a
+        href={siteConfig.contact.instagramUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hover:text-cloud flex items-center gap-2"
+      >
+        <AtSign class="h-4 w-4" />
+        {siteConfig.contact.instagramHandle}
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,68 @@
+---
+import { work } from '../../data/site';
+
+const toneClass = {
+  gold: 'experiment-panel--gold',
+  raised: 'experiment-panel--raised',
+} as const;
+---
+
+<section id="trabajo" class="border-cloud/10 border-t">
+  <div class="mx-auto max-w-6xl px-6 py-28 sm:px-8 sm:py-40">
+    <div
+      data-reveal
+      class="border-cloud/10 flex flex-wrap items-end justify-between gap-4 border-b pb-8"
+    >
+      <div class="max-w-2xl">
+        <p class="text-gold-500 font-mono text-xs font-medium tracking-[0.2em] uppercase">
+          {work.eyebrow}
+        </p>
+        <h2
+          class="font-display text-cloud mt-4 text-3xl leading-[1.05] font-bold tracking-tight sm:text-4xl"
+        >
+          {work.headline.map((line) => <span class="block">{line}</span>)}
+        </h2>
+        <p class="text-cloud-muted mt-4 font-sans">{work.intro}</p>
+      </div>
+    </div>
+
+    {
+      /*
+        Mockup de navegador: barra de puntos + URL simulada + panel de
+        contenido. Cada tarjeta se etiqueta como concepto interno — nunca
+        se presenta como cliente real.
+      */
+    }
+    <div class="mt-14 grid gap-10 sm:grid-cols-2">
+      {
+        work.experiments.map((item) => (
+          <article>
+            <div class="border-cloud/10 overflow-hidden rounded-lg border">
+              <div class="border-cloud/10 bg-ground-raised flex items-center gap-3 border-b px-4 py-2.5">
+                <div class="flex gap-1.5">
+                  <span class="bg-cloud/20 h-2 w-2 rounded-full" />
+                  <span class="bg-cloud/20 h-2 w-2 rounded-full" />
+                  <span class="bg-cloud/20 h-2 w-2 rounded-full" />
+                </div>
+                <div class="border-cloud/10 bg-ground flex-1 rounded-full border px-3 py-1">
+                  <span class="text-cloud-muted font-mono text-[11px]">{item.domain}</span>
+                </div>
+              </div>
+              <div
+                data-image-reveal
+                class={`experiment-panel aspect-[16/10] w-full ${toneClass[item.tone]}`}
+              />
+            </div>
+
+            <div data-reveal class="mt-5">
+              <p class="text-gold-500 font-mono text-[11px] tracking-[0.12em] uppercase">
+                Concepto — {item.category}
+              </p>
+              <p class="text-cloud-muted mt-2 font-sans text-sm">{item.description}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,59 @@
+---
+import { services } from '../../data/site';
+---
+
+<section id="servicios" class="border-cloud/10 border-t">
+  <div class="mx-auto max-w-6xl px-6 py-28 sm:px-8 sm:py-40">
+    <div data-reveal-group class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+      <div data-reveal-item>
+        <p class="text-gold-500 font-mono text-xs font-medium tracking-[0.2em] uppercase">
+          {services.eyebrow}
+        </p>
+        <h2
+          class="font-display text-cloud mt-4 text-4xl leading-[1.02] font-bold tracking-tight sm:text-5xl"
+        >
+          {services.headline.map((line) => <span class="block">{line}</span>)}
+        </h2>
+      </div>
+      <p data-reveal-item class="text-cloud-muted max-w-sm font-sans text-sm sm:text-right">
+        {services.intro}
+      </p>
+    </div>
+
+    <div
+      data-reveal-group
+      class="border-cloud/10 bg-cloud/10 mt-16 grid gap-px overflow-hidden rounded-lg border sm:grid-cols-2"
+    >
+      {
+        services.items.map((service) => (
+          <article
+            data-reveal-item
+            class="group bg-ground hover:bg-ground-raised p-8 transition-colors duration-200 sm:p-10"
+          >
+            <div class="flex items-start justify-between">
+              <span class="text-cloud-muted font-mono text-xs tracking-[0.1em]">{service.n}</span>
+              <span class="font-display text-gold-500 text-2xl transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                {service.icon}
+              </span>
+            </div>
+            <h3 class="font-display text-cloud mt-8 text-2xl font-semibold">{service.title}</h3>
+            <p class="text-cloud-muted mt-3 max-w-sm font-sans text-sm">{service.desc}</p>
+          </article>
+        ))
+      }
+    </div>
+
+    <div
+      data-reveal
+      class="border-cloud/10 text-cloud-muted mt-10 flex flex-col gap-3 border-t pt-8 font-mono text-xs tracking-[0.06em] uppercase sm:flex-row sm:flex-wrap sm:gap-x-10"
+    >
+      {
+        services.manifesto.map((line) => (
+          <span>
+            <strong class="text-cloud">{line.strong}</strong> {line.rest}
+          </span>
+        ))
+      }
+    </div>
+  </div>
+</section>

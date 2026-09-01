@@ -2,29 +2,29 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import FloatingWhatsapp from '../components/FloatingWhatsapp.astro';
 import Hero from '../components/sections/Hero.astro';
 import Marquee from '../components/sections/Marquee.astro';
-import Manifesto from '../components/sections/Manifesto.astro';
-import Showcase from '../components/sections/Showcase.astro';
+import Services from '../components/sections/Services.astro';
+import Work from '../components/sections/Work.astro';
 import Process from '../components/sections/Process.astro';
-import Capabilities from '../components/sections/Capabilities.astro';
-import CtaBanner from '../components/sections/CtaBanner.astro';
+import Studio from '../components/sections/Studio.astro';
+import Contact from '../components/sections/Contact.astro';
 ---
 
 <BaseLayout>
   <Navbar />
-
   <main>
     <Hero />
     <Marquee />
-    <Manifesto />
-    <Showcase />
+    <Services />
+    <Work />
     <Process />
-    <Capabilities />
-    <CtaBanner />
+    <Studio />
+    <Contact />
   </main>
-
   <Footer />
+  <FloatingWhatsapp />
 </BaseLayout>
 
 <script>
@@ -33,12 +33,10 @@ import CtaBanner from '../components/sections/CtaBanner.astro';
   import { initImageReveal } from '../lib/motion/imageReveal';
   import { initProgressLine } from '../lib/motion/progressLine';
   import { initMagnetic } from '../lib/motion/magnetic';
-  import { scrubWords } from '../lib/motion/textReveal';
 
   initHero(document);
   initScrollReveal(document);
   initImageReveal(document);
   initProgressLine(document);
   initMagnetic(document);
-  scrubWords(document.querySelector('[data-manifesto-text]'));
 </script>

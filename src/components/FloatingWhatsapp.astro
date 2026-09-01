@@ -1,0 +1,19 @@
+---
+import { MessageCircle } from '@lucide/astro';
+import { floatingWhatsapp } from '../data/site';
+---
+
+<!--
+  CTA persistente de conversión: visible en todo momento sin bloquear
+  contenido ni repetirse en el flujo de lectura — vive fuera del <main>,
+  fijo en la esquina. Un solo punto de fricción mínima para "hablar ya".
+-->
+<a
+  href={floatingWhatsapp.href}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label={floatingWhatsapp.label}
+  class="interactive-lift bg-gold-500 text-ground hover:bg-gold-400 fixed right-5 bottom-5 z-40 flex h-14 w-14 items-center justify-center rounded-full shadow-lg shadow-black/30 sm:right-8 sm:bottom-8"
+>
+  <MessageCircle class="h-6 w-6" />
+</a>

@@ -1,30 +1,45 @@
 @import 'tailwindcss';
 
 /*
-  Sistema de diseño de NOVA Web — dirección editorial/tech premium.
-  Cada proyecto de cliente debe sobrescribir estos tokens (color, tipografía)
-  con la identidad de su propia marca; la estructura y las utilidades de
-  motion se mantienen.
+  Sistema de diseño de NOVA Digital Studio — identidad propia del estudio,
+  deliberadamente distinta de `nova-web` (el template que se clona para
+  clientes): ese es editorial/claro con acento terracota; este es un
+  estudio digital que vive mayormente en un fondo oscuro, con un acento
+  dorado y tipografía más gráfica. No comparten paleta a propósito — NOVA
+  no puede verse como "otro cliente de su propio template".
 */
 @theme {
-  /* Tinta: casi negro cálido, no un gris/slate genérico. */
-  --color-ink: oklch(0.19 0.014 60);
-  --color-ink-muted: oklch(0.5 0.014 60);
+  /* Fondo principal: navy casi negro, no un negro neutro ni un negro cálido
+     "editorial" (eso ya lo usa el template de clientes de NOVA). Validado
+     contra exploraciones previas del sitio (#0a0e16) — un estudio digital
+     que se presenta con seguridad, con un matiz frío deliberado. */
+  --color-ground: oklch(0.16 0.025 255);
+  --color-ground-raised: oklch(0.22 0.028 255);
 
-  /* Papel: blanco cálido, no blanco puro (sensación de página impresa). */
-  --color-paper: oklch(0.98 0.006 90);
-  --color-paper-dim: oklch(0.955 0.008 85);
+  /* Texto sobre fondo oscuro. */
+  --color-cloud: oklch(0.95 0.006 255);
+  --color-cloud-muted: oklch(0.64 0.02 250);
 
-  /* Acento único: terracota, usado con moderación (nunca como color base). */
-  --color-accent-50: oklch(0.96 0.02 45);
-  --color-accent-200: oklch(0.87 0.06 42);
-  --color-accent-400: oklch(0.7 0.12 40);
-  --color-accent-500: oklch(0.6 0.14 38);
-  --color-accent-600: oklch(0.52 0.14 36);
-  --color-accent-700: oklch(0.42 0.12 34);
+  /* Único respiro claro del sitio (sección Studio): cálido a propósito,
+     en contraste deliberado con el navy frío del resto — el momento más
+     humano/reflexivo del sitio también se ve distinto. */
+  --color-paper: oklch(0.96 0.012 80);
+  --color-ink: oklch(0.17 0.014 55);
+  --color-ink-muted: oklch(0.46 0.016 55);
 
-  --font-display: 'Fraunces Variable', ui-serif, Georgia, serif;
-  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  /* Acento dorado/ámbar — cálido, premium, humano. Deliberadamente NO
+     terracota (acento del template de clientes), NO púrpura/verde ácido
+     (cliché de "IA genérica"). Validado contra #f2a93b de exploraciones
+     previas. Dos puntos de la misma curva: claro para brillar sobre
+     `ground`, oscuro para tener contraste sobre `paper`. */
+  --color-gold-400: oklch(0.85 0.13 78);
+  --color-gold-500: oklch(0.78 0.15 74);
+  --color-gold-600: oklch(0.68 0.16 70);
+  --color-gold-700: oklch(0.56 0.15 68);
+
+  --font-display: 'Unbounded Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Manrope Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 }
 
 html {
@@ -32,26 +47,32 @@ html {
 }
 
 body {
-  @apply bg-paper text-ink antialiased;
+  @apply bg-ground text-cloud antialiased;
   font-feature-settings: 'ss01' 1;
 }
 
 ::selection {
-  background-color: var(--color-accent-200);
-  color: var(--color-ink);
+  background-color: var(--color-gold-500);
+  color: var(--color-ground);
 }
 
 /*
-  Sistema de motion — capa CSS.
-  GSAP (src/lib/motion/) maneja las animaciones orquestadas (entradas,
-  scroll reveal, reveal de texto/imagen, hover compuesto, menú móvil). Los
-  estados simples de un solo elemento (hover/press de botones, enlaces,
-  iconos) se quedan en CSS puro: es la herramienta más barata que funciona
-  y no depende de que el JS de motion haya cargado.
+  Sistema de motion — capa CSS. GSAP (src/lib/motion/) maneja las entradas
+  orquestadas y el scroll reveal; los estados de un solo elemento se quedan
+  en CSS puro (más barato, no depende de que el JS de motion haya cargado).
 */
 :root {
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* Foco de teclado consistente en todo el sitio (dorado, no el azul por
+   defecto del navegador) — Button.astro define el suyo propio porque
+   necesita el offset ajustado a su forma de píldora. */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-gold-500);
+  outline-offset: 2px;
 }
 
 .interactive-lift {
@@ -86,11 +107,7 @@ body {
 
 /*
   Máscara para reveal de líneas de texto (ver src/lib/motion/textReveal.ts).
-  padding-block + margin-block negativo del mismo valor: le da a la máscara
-  un poco de aire extra para que overflow:hidden no recorte descendentes
-  (g, y, j, q) cuando el titular usa un line-height muy ajustado — sin
-  alterar el espaciado visual entre líneas, porque el margen negativo
-  cancela el padding añadido.
+  Ver el mismo comentario en el template — evita recortar descendentes.
 */
 .reveal-line-mask {
   overflow: hidden;
@@ -99,55 +116,45 @@ body {
 }
 
 /*
-  Paneles visuales de "trabajo seleccionado": sustituyen fotografía real
-  (no disponible en la plantilla) con un color sólido de marca + una textura
-  de líneas finas repetidas — deliberadamente NO un gradiente de color, para
-  evitar el look genérico de "tarjeta SaaS con degradado".
+  Textura de los paneles de "Experimentos seleccionados": franjas verticales
+  finas (no diagonales, para diferenciarse visualmente del template),
+  sugiriendo estructura/código sin caer en un patrón literal de "terminal".
+  El color de fondo lo define cada modificador de tono, no la clase base
+  — así ambas variantes conviven en el cascade sin que una pise a la otra
+  (una utilidad de Tailwind con la misma especificidad que este `background-
+  color` perdería contra él por orden de aparición en la hoja compilada).
 */
-.visual-panel {
+.experiment-panel {
   position: relative;
   overflow: hidden;
-}
-
-.visual-panel--ink {
-  background-color: var(--color-ink);
   background-image: repeating-linear-gradient(
-    135deg,
-    rgb(250 250 248 / 6%) 0px,
-    rgb(250 250 248 / 6%) 1px,
+    90deg,
+    rgb(250 246 240 / 4%) 0px,
+    rgb(250 246 240 / 4%) 1px,
     transparent 1px,
-    transparent 8px
+    transparent 10px
   );
 }
 
-.visual-panel--accent {
-  background-color: var(--color-accent-500);
-  background-image: repeating-linear-gradient(
-    135deg,
-    rgb(25 22 20 / 8%) 0px,
-    rgb(25 22 20 / 8%) 1px,
-    transparent 1px,
-    transparent 8px
-  );
+/*
+  Tono oscuro y cálido definido directamente (no color-mix entre dorado y
+  `--color-ground`): oklch interpola matiz por el arco más corto, que entre
+  un hue cálido (~70) y uno frío (~255) cruza magenta/púrpura — justo el
+  cliché de "morado de IA genérica" que este sitio evita a propósito.
+*/
+.experiment-panel--gold {
+  background-color: oklch(0.24 0.05 68);
 }
 
-.visual-panel--dim {
-  background-color: var(--color-paper-dim);
-  background-image: repeating-linear-gradient(
-    135deg,
-    rgb(25 22 20 / 6%) 0px,
-    rgb(25 22 20 / 6%) 1px,
-    transparent 1px,
-    transparent 8px
-  );
+.experiment-panel--raised {
+  background-color: var(--color-ground-raised);
 }
 
-/* Ticker infinito: movimiento constante y predecible → CSS, no GSAP/JS.
-   Corre fuera del hilo principal y se pausa sola en reduced-motion. */
+/* Ticker de servicios / marquee: movimiento constante → CSS, no GSAP. */
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee-scroll 28s linear infinite;
+  animation: marquee-scroll 32s linear infinite;
 }
 
 @keyframes marquee-scroll {
@@ -156,7 +163,6 @@ body {
   }
 }
 
-/* Gateo de hover: evita falsos hovers en pantallas táctiles al tocar. */
 @media (hover: hover) and (pointer: fine) {
   .interactive-lift:hover {
     transform: translateY(-1px);

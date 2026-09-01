@@ -3,17 +3,28 @@ import Button from '../Button.astro';
 import { hero } from '../../data/site';
 ---
 
-<section id="inicio" class="relative overflow-hidden pt-40 pb-24 sm:pt-52 sm:pb-32">
-  <div class="mx-auto max-w-6xl px-6 sm:px-8">
+<!--
+  El hero es la tesis del sitio: tipografía como protagonista, sin imagen
+  ni degradado de fondo. Un estudio digital demuestra su criterio con cómo
+  trata el texto, no con un hero-shot genérico.
+-->
+<section id="inicio" class="relative overflow-hidden pt-36 pb-24 sm:pt-48 sm:pb-32">
+  <div
+    class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgb(216_170_90_/_8%),transparent_55%)]"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="relative mx-auto max-w-6xl px-6 sm:px-8">
     <p
       data-hero-item
-      class="text-ink-muted font-sans text-xs font-medium tracking-[0.2em] uppercase"
+      class="text-gold-500 font-mono text-xs font-medium tracking-[0.22em] uppercase"
     >
       {hero.eyebrow}
     </p>
 
     <h1
-      class="font-display text-ink mt-6 text-[clamp(2.75rem,9vw,6.75rem)] leading-[0.98] font-medium tracking-tight"
+      class="font-display text-cloud mt-6 text-[clamp(2.6rem,8.4vw,6.25rem)] leading-[0.98] font-bold tracking-tight"
     >
       {
         hero.headline.map((line) => (
@@ -26,7 +37,7 @@ import { hero } from '../../data/site';
       }
     </h1>
 
-    <p data-hero-item class="text-ink-muted mt-8 max-w-xl font-sans text-lg sm:text-xl">
+    <p data-hero-item class="text-cloud-muted mt-8 max-w-xl font-sans text-lg sm:text-xl">
       {hero.sub}
     </p>
 
@@ -38,9 +49,20 @@ import { hero } from '../../data/site';
             variant={cta.variant}
             size="lg"
             magnetic={cta.variant === 'primary'}
+            external={cta.external}
           >
             {cta.label}
           </Button>
+        ))
+      }
+    </div>
+
+    <div data-hero-item class="border-cloud/10 mt-16 flex flex-wrap gap-x-10 gap-y-3 border-t pt-6">
+      {
+        hero.meta.map((step) => (
+          <span class="text-cloud-muted font-mono text-xs">
+            <b class="text-cloud">{step.n}</b> {step.label}
+          </span>
         ))
       }
     </div>

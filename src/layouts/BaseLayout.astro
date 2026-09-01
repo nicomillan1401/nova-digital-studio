@@ -1,6 +1,9 @@
 ---
-import '@fontsource-variable/inter/standard.css';
-import '@fontsource-variable/fraunces/opsz.css';
+import '@fontsource-variable/unbounded';
+import '@fontsource-variable/manrope';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/500.css';
+import '@fontsource/ibm-plex-mono/600.css';
 import '../styles/global.css';
 import { siteConfig } from '../data/site';
 
@@ -9,10 +12,25 @@ interface Props {
   description?: string;
 }
 
-const { title = siteConfig.name, description = siteConfig.description } = Astro.props;
+const { title = siteConfig.fullName, description = siteConfig.description } = Astro.props;
 
-const pageTitle = title === siteConfig.name ? title : `${title} · ${siteConfig.name}`;
+const pageTitle =
+  title === siteConfig.fullName
+    ? `${title} — Diseño y desarrollo web`
+    : `${title} · ${siteConfig.fullName}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+/** Organization schema: le da a los buscadores datos de contacto reales
+    y estructurados, sin inventar reseñas, ratings ni métricas. */
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: siteConfig.fullName,
+  url: siteConfig.url,
+  description: siteConfig.description,
+  email: siteConfig.contact.email,
+  sameAs: [siteConfig.contact.instagramUrl],
+};
 ---
 
 <!doctype html>
@@ -24,13 +42,18 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="canonical" href={canonicalURL} />
 
     <title>{pageTitle}</title>
-    <meta name="description" content={description} />
+    <meta
+      name="description"
+      content="Estudio digital de diseño y desarrollo web para negocios, marcas y restaurantes. Sitios rápidos, distintivos y hechos a medida — con o sin base en Venezuela."
+    />
 
     <!-- Open Graph / redes sociales -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
+    <meta property="og:locale" content="es_VE" />
+    <meta property="og:site_name" content={siteConfig.fullName} />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -38,6 +61,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:description" content={description} />
 
     <meta name="generator" content={Astro.generator} />
+
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
   </head>
   <body>
     <slot />
