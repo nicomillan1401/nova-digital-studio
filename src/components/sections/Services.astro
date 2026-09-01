@@ -25,14 +25,26 @@ import { services } from '../../data/site';
       class="border-cloud/10 bg-cloud/10 mt-16 grid gap-px overflow-hidden rounded-lg border sm:grid-cols-2"
     >
       {
+        /*
+          Hover compuesto vía GSAP (data-hover-card/data-hover-icon, ver
+          src/lib/motion/cardHover.ts) en vez del translate CSS anterior:
+          tarjeta y ícono se mueven juntos, coordinados, con el mismo
+          feedback físico que el resto del sistema de motion. hover-glow
+          es la única parte que se queda en CSS puro (una sombra no
+          necesita orquestación) y comparte el gateo a hover real de
+          cardHover.ts vía la media query de hover:hover.
+        */
+      }
+      {
         services.items.map((service) => (
           <article
             data-reveal-item
-            class="group bg-ground hover:bg-ground-raised p-8 transition-colors duration-200 sm:p-10"
+            data-hover-card
+            class="group hover-glow bg-ground hover:bg-ground-raised p-8 transition-[background-color] duration-200 sm:p-10"
           >
             <div class="flex items-start justify-between">
               <span class="text-cloud-muted font-mono text-xs tracking-[0.1em]">{service.n}</span>
-              <span class="font-display text-gold-500 text-2xl transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+              <span data-hover-icon class="font-display text-gold-500 inline-block text-2xl">
                 {service.icon}
               </span>
             </div>

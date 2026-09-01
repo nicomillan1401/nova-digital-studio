@@ -183,6 +183,19 @@ button:focus-visible {
   .social-icon:hover {
     transform: scale(1.1);
   }
+
+  /*
+    Glow dorado sutil en las tarjetas de servicio, sincronizado con la
+    elevación GSAP de cardHover.ts (mismo trigger, misma duración
+    aproximada) — profundidad sin glassmorphism, según apple-design.
+  */
+  .hover-glow {
+    transition: box-shadow 180ms var(--ease-out-strong);
+  }
+
+  .hover-glow:hover {
+    box-shadow: 0 12px 32px -12px rgb(216 170 90 / 18%);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
