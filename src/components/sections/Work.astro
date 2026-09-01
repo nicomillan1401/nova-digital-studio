@@ -2,19 +2,18 @@
 import { Building2, UtensilsCrossed } from '@lucide/astro';
 import { work } from '../../data/site';
 
-const toneClass = {
-  gold: 'experiment-panel--gold',
-  raised: 'experiment-panel--raised',
-} as const;
-
 const iconComponent = {
   'utensils-crossed': UtensilsCrossed,
   'building-2': Building2,
 } as const;
+
+const [featured, secondary] = work.experiments;
+const FeaturedIcon = iconComponent[featured.icon];
+const SecondaryIcon = iconComponent[secondary.icon];
 ---
 
 <section id="trabajo" class="border-cloud/10 border-t">
-  <div class="mx-auto max-w-6xl px-6 py-28 sm:px-8 sm:py-40">
+  <div class="px-6 pt-24 sm:px-10 sm:pt-32 lg:px-16">
     <div
       data-reveal
       class="border-cloud/10 flex flex-wrap items-end justify-between gap-4 border-b pb-8"
@@ -24,65 +23,104 @@ const iconComponent = {
           {work.eyebrow}
         </p>
         <h2
-          class="font-display text-cloud mt-4 text-3xl leading-[1.05] font-bold tracking-tight sm:text-4xl"
+          class="font-display text-cloud mt-4 text-4xl leading-[1.05] font-bold tracking-tight sm:text-5xl"
         >
           {work.headline.map((line) => <span class="block">{line}</span>)}
         </h2>
         <p class="text-cloud-muted mt-4 font-sans">{work.intro}</p>
       </div>
     </div>
+  </div>
 
-    {
-      /*
-        Mockup de navegador: barra de puntos + URL simulada + panel de
-        contenido. Cada tarjeta se etiqueta como concepto interno — nunca
-        se presenta como cliente real.
+  {
+    /*
+      Momento memorable: el primer concepto rompe el contenedor por
+      completo (.bleed-x, edge-to-edge) con una cortina diagonal
+      (initImageCurtain) en vez del inset horizontal estándar — y su
+      etiqueta se superpone al borde de la imagen (margen negativo), no
+      vive dentro de una card. Sin barra de navegador aquí: a esta escala
+      el mockup literal de "ventana de navegador" competiría con el propio
+      gesto editorial en vez de reforzarlo.
+    */
+  }
+  <div class="bleed-x mt-14">
+    <div data-image-curtain class="relative">
+      <!--
+        Sin etiqueta "Vista conceptual" aquí (a diferencia del panel
+        secundario): sería redundante con la caja de texto superpuesta
+        abajo, que ya dice "Concepto — {categoría}" — y colisionaba
+        visualmente con ella al estar ambas en la esquina inferior
+        izquierda. El dominio se mueve a la esquina superior, lejos del
+        área de overlap.
+      -->
+      <div
+        class="experiment-panel experiment-panel--gold flex aspect-[21/9] w-full items-center justify-center sm:aspect-[2.4/1]"
+      >
+        <FeaturedIcon class="text-cloud/20 h-24 w-24 sm:h-40 sm:w-40" stroke-width={1} />
+        <span
+          class="text-cloud/30 absolute top-6 right-6 font-mono text-[10px] tracking-[0.2em] uppercase sm:top-8 sm:right-10"
+        >
+          {featured.domain}
+        </span>
+      </div>
+    </div>
 
-        Sin fotografía real que mostrar (no hay clientes que fabricar), el
-        panel es un placeholder EXPLÍCITO: ícono grande de la categoría +
-        etiqueta "Vista conceptual" — nunca un rectángulo de color sólido,
-        que a este nivel de contraste se lee como espacio vacío o imagen
-        rota, no como una decisión de diseño.
-      */
-    }
-    <div class="mt-14 grid gap-10 sm:grid-cols-2">
-      {
-        work.experiments.map((item) => {
-          const Icon = iconComponent[item.icon];
-          return (
-            <article>
-              <div class="border-cloud/10 overflow-hidden rounded-lg border">
-                <div class="border-cloud/10 bg-ground-raised flex items-center gap-3 border-b px-4 py-2.5">
-                  <div class="flex gap-1.5">
-                    <span class="bg-cloud/20 h-2 w-2 rounded-full" />
-                    <span class="bg-cloud/20 h-2 w-2 rounded-full" />
-                    <span class="bg-cloud/20 h-2 w-2 rounded-full" />
-                  </div>
-                  <div class="border-cloud/10 bg-ground flex-1 rounded-full border px-3 py-1">
-                    <span class="text-cloud-muted font-mono text-[11px]">{item.domain}</span>
-                  </div>
-                </div>
-                <div
-                  data-image-reveal
-                  class={`experiment-panel relative flex aspect-[16/10] w-full items-center justify-center ${toneClass[item.tone]}`}
-                >
-                  <Icon class="text-cloud/25 h-16 w-16 sm:h-20 sm:w-20" stroke-width={1.25} />
-                  <span class="text-cloud/40 absolute bottom-4 left-1/2 -translate-x-1/2 font-mono text-[10px] tracking-[0.2em] uppercase">
-                    Vista conceptual
-                  </span>
-                </div>
-              </div>
+    <div
+      data-reveal
+      class="border-gold-500 bg-ground relative z-10 mx-6 -mt-8 max-w-lg border-t-2 px-6 py-6 sm:mx-10 sm:-mt-14 sm:px-10 sm:py-8 lg:mx-16"
+    >
+      <p class="text-gold-500 font-mono text-[11px] tracking-[0.12em] uppercase">
+        Concepto — {featured.category}
+      </p>
+      <p class="text-cloud-muted mt-2 font-sans text-sm sm:text-base">{featured.description}</p>
+    </div>
+  </div>
 
-              <div data-reveal class="mt-5">
-                <p class="text-gold-500 font-mono text-[11px] tracking-[0.12em] uppercase">
-                  Concepto — {item.category}
-                </p>
-                <p class="text-cloud-muted mt-2 font-sans text-sm">{item.description}</p>
-              </div>
-            </article>
-          );
-        })
-      }
+  {
+    /*
+      Segundo concepto: deliberadamente más pequeño y desplazado a la
+      derecha (no el mismo ancho de columna que el primero) — romper la
+      simetría "dos cards iguales" que hacía sentir la sección genérica.
+      Aquí sí conserva la barra de navegador: a escala de card, el mockup
+      literal vuelve a funcionar como referencia legible.
+    */
+  }
+  <div class="px-6 pt-10 pb-24 sm:px-10 sm:pb-32 lg:px-16">
+    <div class="flex justify-end">
+      <article class="w-full max-w-md">
+        <div class="border-cloud/10 overflow-hidden rounded-lg border">
+          <div
+            class="border-cloud/10 bg-ground-raised flex items-center gap-3 border-b px-4 py-2.5"
+          >
+            <div class="flex gap-1.5">
+              <span class="bg-cloud/20 h-2 w-2 rounded-full"></span>
+              <span class="bg-cloud/20 h-2 w-2 rounded-full"></span>
+              <span class="bg-cloud/20 h-2 w-2 rounded-full"></span>
+            </div>
+            <div class="border-cloud/10 bg-ground flex-1 rounded-full border px-3 py-1">
+              <span class="text-cloud-muted font-mono text-[11px]">{secondary.domain}</span>
+            </div>
+          </div>
+          <div
+            data-image-reveal
+            class="experiment-panel experiment-panel--raised relative flex aspect-[16/10] w-full items-center justify-center"
+          >
+            <SecondaryIcon class="text-cloud/25 h-16 w-16 sm:h-20 sm:w-20" stroke-width={1.25} />
+            <span
+              class="text-cloud/40 absolute bottom-4 left-1/2 -translate-x-1/2 font-mono text-[10px] tracking-[0.2em] uppercase"
+            >
+              Vista conceptual
+            </span>
+          </div>
+        </div>
+
+        <div data-reveal class="mt-5">
+          <p class="text-gold-500 font-mono text-[11px] tracking-[0.12em] uppercase">
+            Concepto — {secondary.category}
+          </p>
+          <p class="text-cloud-muted mt-2 font-sans text-sm">{secondary.description}</p>
+        </div>
+      </article>
     </div>
   </div>
 </section>

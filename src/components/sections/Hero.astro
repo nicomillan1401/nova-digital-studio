@@ -4,27 +4,29 @@ import { hero } from '../../data/site';
 ---
 
 <!--
-  El hero es la tesis del sitio: tipografía como protagonista, sin imagen
-  ni degradado de fondo. Un estudio digital demuestra su criterio con cómo
-  trata el texto, no con un hero-shot genérico.
+  Portada editorial, no "hero centrado + 2 botones": el eyebrow y el
+  índice de página funcionan como masthead de revista (esquinas opuestas,
+  no apilados), y el titular corre a un ancho casi de viewport completo —
+  el contraste de escala entre el masthead diminuto y el titular gigante
+  es el primer "momento memorable" del sitio.
 -->
-<section id="inicio" class="relative overflow-hidden pt-36 pb-24 sm:pt-48 sm:pb-32">
+<section id="inicio" class="relative overflow-hidden pt-28 pb-20 sm:pt-36 sm:pb-28">
   <div
     class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgb(216_170_90_/_8%),transparent_55%)]"
     aria-hidden="true"
   >
   </div>
 
-  <div class="relative mx-auto max-w-6xl px-6 sm:px-8">
-    <p
-      data-hero-item
-      class="text-gold-500 font-mono text-xs font-medium tracking-[0.22em] uppercase"
-    >
-      {hero.eyebrow}
-    </p>
+  <div class="relative px-6 sm:px-10 lg:px-16">
+    <div data-hero-item class="border-cloud/10 flex items-baseline justify-between border-b pb-4">
+      <p class="text-gold-500 font-mono text-xs font-medium tracking-[0.22em] uppercase">
+        {hero.eyebrow}
+      </p>
+      <p class="text-cloud-muted hidden font-mono text-xs tracking-[0.15em] sm:block">N°01</p>
+    </div>
 
     <h1
-      class="font-display text-cloud mt-6 text-[clamp(2.6rem,8.4vw,6.25rem)] leading-[0.98] font-bold tracking-tight"
+      class="font-display text-cloud mt-8 text-[clamp(3rem,11vw,9.5rem)] leading-[0.92] font-bold tracking-tight sm:mt-12"
     >
       {
         hero.headline.map((line) => (
@@ -37,24 +39,26 @@ import { hero } from '../../data/site';
       }
     </h1>
 
-    <p data-hero-item class="text-cloud-muted mt-8 max-w-xl font-sans text-lg sm:text-xl">
-      {hero.sub}
-    </p>
+    <div class="mt-10 flex flex-col gap-10 sm:mt-14 lg:flex-row lg:items-end lg:justify-between">
+      <p data-hero-item class="text-cloud-muted max-w-md font-sans text-lg sm:text-xl">
+        {hero.sub}
+      </p>
 
-    <div data-hero-item class="mt-10 flex flex-wrap items-center gap-4">
-      {
-        hero.ctas.map((cta) => (
-          <Button
-            href={cta.href}
-            variant={cta.variant}
-            size="lg"
-            magnetic={cta.variant === 'primary'}
-            external={cta.external}
-          >
-            {cta.label}
-          </Button>
-        ))
-      }
+      <div data-hero-item class="flex flex-wrap items-center gap-4 lg:shrink-0">
+        {
+          hero.ctas.map((cta) => (
+            <Button
+              href={cta.href}
+              variant={cta.variant}
+              size="lg"
+              magnetic={cta.variant === 'primary'}
+              external={cta.external}
+            >
+              {cta.label}
+            </Button>
+          ))
+        }
+      </div>
     </div>
 
     <div data-hero-item class="border-cloud/10 mt-16 flex flex-wrap gap-x-10 gap-y-3 border-t pt-6">

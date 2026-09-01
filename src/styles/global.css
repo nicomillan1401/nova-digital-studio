@@ -49,6 +49,10 @@ html {
 body {
   @apply bg-ground text-cloud antialiased;
   font-feature-settings: 'ss01' 1;
+  /* .bleed-x (ver Trabajo) usa width:100vw, que en algunos navegadores
+     incluye el ancho de la scrollbar y produce unos px de overflow
+     horizontal — se neutraliza aquí una sola vez a nivel de body. */
+  overflow-x: hidden;
 }
 
 ::selection {
@@ -156,6 +160,38 @@ button:focus-visible {
 */
 .experiment-panel--raised {
   background-color: oklch(0.28 0.03 255);
+}
+
+/*
+  Ruptura de contenedor ("bleed"): un hijo con esta clase ignora el
+  max-width de su padre y ocupa el ancho completo del viewport — técnica
+  estándar sin dependencias. Se usa en Trabajo para que la imagen del
+  primer concepto corra borde a borde, uno de los "momentos memorables"
+  que rompen deliberadamente la retícula simétrica del resto del sitio.
+*/
+.bleed-x {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+
+/*
+  Numeral fantasma: dispositivo tipográfico estructural (no decorativo)
+  que aparece detrás/junto al copy en Servicios y Proceso — el contraste
+  de escala entre el numeral gigante y el texto compacto es lo que rompe
+  el ritmo uniforme "hero + cards" que hacía sentir la plantilla genérica.
+*/
+.ghost-numeral {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.8;
+  color: color-mix(in oklch, var(--color-cloud) 8%, transparent);
+  pointer-events: none;
+  user-select: none;
+}
+
+.ghost-numeral--ink {
+  color: color-mix(in oklch, var(--color-ink) 6%, transparent);
 }
 
 /* Ticker de servicios / marquee: movimiento constante → CSS, no GSAP. */

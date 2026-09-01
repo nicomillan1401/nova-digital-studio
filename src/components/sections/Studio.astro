@@ -2,15 +2,25 @@
 import { studio } from '../../data/site';
 ---
 
+{
+  /*
+    Momento memorable: puente de transición cinematográfico entre el navy
+    del resto del sitio y el papel de Studio (initSectionScrub, scrub
+    ligado al scroll, no un timer). Va en un div separado del contenido
+    de texto —no en la propia section— para que ningún párrafo tenga que
+    sostener contraste legible a mitad de una transición de color; el
+    texto siempre vive sobre `bg-paper` sólido.
+  */
+}
+<div data-scrub-bg aria-hidden="true" class="h-[18vh] sm:h-[26vh]"></div>
+
 <!--
-  Único respiro claro del sitio: rompe el ritmo navy a propósito (variación
-  estructural, no todas las secciones deben verse iguales) — el momento
-  más humano/reflexivo del sitio también se presenta literalmente distinto.
+  Único respiro claro del sitio: rompe el ritmo navy a propósito — el
+  momento más humano/reflexivo del sitio también se presenta literalmente
+  distinto.
 -->
 <section id="studio" class="bg-paper text-ink">
-  <div
-    class="mx-auto grid max-w-5xl gap-12 px-6 py-28 sm:px-8 sm:py-40 lg:grid-cols-[1fr_1fr] lg:gap-16"
-  >
+  <div class="grid gap-12 px-6 py-16 sm:px-10 sm:py-24 lg:grid-cols-[1fr_1fr] lg:gap-16 lg:px-16">
     <div data-reveal>
       <!-- text-[oklch(...)] en vez de text-gold-700: a este tamaño de texto
            (xs) gold-700 da 4.27:1 sobre `paper`, por debajo del mínimo AA de
@@ -37,12 +47,23 @@ import { studio } from '../../data/site';
           </p>
         ))
       }
-      <blockquote
-        data-reveal-item
-        class="border-gold-600 font-display text-ink border-l-2 pl-5 text-lg leading-snug italic"
-      >
-        “{studio.quote}”
-      </blockquote>
     </div>
+  </div>
+
+  {
+    /*
+      Pull-quote que rompe el ancho del contenedor de 2 columnas de
+      arriba: tipografía gigante en vez de una cita pequeña metida en la
+      columna de texto — el mismo dispositivo de contraste de escala que
+      el resto del sitio, aplicado al único momento de calma tipográfica.
+    */
+  }
+  <div class="border-ink/10 border-t px-6 py-16 sm:px-10 sm:py-24 lg:px-16">
+    <blockquote
+      data-reveal
+      class="font-display text-ink max-w-4xl text-[clamp(1.75rem,4.4vw,3.25rem)] leading-[1.1] font-medium tracking-tight italic"
+    >
+      “{studio.quote}”
+    </blockquote>
   </div>
 </section>
