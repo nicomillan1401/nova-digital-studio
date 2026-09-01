@@ -1,17 +1,25 @@
 ---
-import { Building2, UtensilsCrossed } from '@lucide/astro';
 import { work } from '../../data/site';
 
-const iconComponent = {
-  'utensils-crossed': UtensilsCrossed,
-  'building-2': Building2,
-} as const;
-
-const [featured, secondary] = work.experiments;
-const FeaturedIcon = iconComponent[featured.icon];
-const SecondaryIcon = iconComponent[secondary.icon];
+const [first, second] = work.experiments;
 ---
 
+<!--
+  Reescritura completa (no ajuste) de la composición anterior: fuera el
+  mockup de navegador, el ícono de categoría y la tarjeta flotante con
+  borde — todo eso es ADN de "case study template" de portfolio dev.
+
+  Dos composiciones deliberadamente distintas (no espejadas) por
+  proyecto: la 01 es un banner horizontal full-bleed con el numeral y el
+  título integrados/superpuestos a la propia imagen; la 02 es vertical y
+  asimétrica, desplazada a la derecha, con el numeral viviendo en el
+  espacio negativo FUERA de la imagen — el contraste entre ambas es la
+  variación real, no una plantilla de card repetida dos veces.
+
+  Sin CTA ni botón en esta sección: es puramente visual/editorial, sin
+  nada que compita con la composición ni simule ser clickeable (no son
+  casos reales, ver `work.intro` arriba).
+-->
 <section id="trabajo" class="border-cloud/10 border-t">
   <div class="px-6 pt-24 sm:px-10 sm:pt-32 lg:px-16">
     <div
@@ -33,94 +41,102 @@ const SecondaryIcon = iconComponent[secondary.icon];
   </div>
 
   {
-    /*
-      Momento memorable: el primer concepto rompe el contenedor por
-      completo (.bleed-x, edge-to-edge) con una cortina diagonal
-      (initImageCurtain) en vez del inset horizontal estándar — y su
-      etiqueta se superpone al borde de la imagen (margen negativo), no
-      vive dentro de una card. Sin barra de navegador aquí: a esta escala
-      el mockup literal de "ventana de navegador" competiría con el propio
-      gesto editorial en vez de reforzarlo.
-    */
+    /* PROYECTO 01 — banner horizontal full-bleed: numeral con contorno y
+       título gigante viven dentro/sobre la propia imagen, no en una card
+       aparte. Zoom-out continuo (data-work-scale) da sensación de
+       profundidad al centrarse en pantalla. */
   }
-  <div class="bleed-x mt-14">
-    <div data-image-curtain class="relative">
-      <!--
-        Sin etiqueta "Vista conceptual" aquí (a diferencia del panel
-        secundario): sería redundante con la caja de texto superpuesta
-        abajo, que ya dice "Concepto — {categoría}" — y colisionaba
-        visualmente con ella al estar ambas en la esquina inferior
-        izquierda. El dominio se mueve a la esquina superior, lejos del
-        área de overlap.
-      -->
+  <div class="bleed-x relative mt-16 sm:mt-20">
+    <div data-work-panel class="relative aspect-[4/3] w-full overflow-hidden sm:aspect-[21/9]">
       <div
-        class="experiment-panel experiment-panel--gold flex aspect-[21/9] w-full items-center justify-center sm:aspect-[2.4/1]"
+        data-work-scale
+        class="experiment-panel experiment-panel--gold absolute inset-0 flex items-end justify-end p-4 sm:p-8"
       >
-        <FeaturedIcon class="text-cloud/20 h-24 w-24 sm:h-40 sm:w-40" stroke-width={1} />
         <span
-          class="text-cloud/30 absolute top-6 right-6 font-mono text-[10px] tracking-[0.2em] uppercase sm:top-8 sm:right-10"
+          data-work-numeral
+          class="numeral-outline numeral-outline--gold text-[clamp(7rem,26vw,16rem)]"
         >
-          {featured.domain}
+          {first.n}
         </span>
+      </div>
+      <div
+        class="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-[linear-gradient(to_top,var(--color-ground),transparent)]"
+      >
       </div>
     </div>
 
-    <div
-      data-reveal
-      class="border-gold-500 bg-ground relative z-10 mx-6 -mt-8 max-w-lg border-t-2 px-6 py-6 sm:mx-10 sm:-mt-14 sm:px-10 sm:py-8 lg:mx-16"
-    >
-      <p class="text-gold-500 font-mono text-[11px] tracking-[0.12em] uppercase">
-        Concepto — {featured.category}
+    <!--
+      Sin margen negativo (solape) por debajo de `sm`: el panel es mucho
+      más bajo en mobile (aspect 4/3 vs 21/9) y el título ocupa todo el
+      ancho, así que un solape calibrado para el banner ancho de
+      escritorio choca directamente contra el numeral en la esquina del
+      panel — se detectó así, con "RESTAURANTE" tapado por el numeral.
+    -->
+    <div class="relative z-10 mt-6 px-6 sm:-mt-28 sm:px-10 lg:px-16">
+      <p data-work-tag class="text-gold-500 font-mono text-xs tracking-[0.14em] uppercase">
+        Concepto — {first.n}
       </p>
-      <p class="text-cloud-muted mt-2 font-sans text-sm sm:text-base">{featured.description}</p>
+      <!--
+        break-words + mínimo del clamp bajado a 2.1rem (no 2.5rem): con
+        una sola palabra larga sin espacio ("RESTAURANTE"), el texto
+        desbordaba su propio contenedor por ~20px en mobile, y el
+        `overflow-x: hidden` de body (necesario para .bleed-x) lo
+        recortaba en el borde del viewport — cortando media "E" final y
+        dejando algo que se leía como "RESTAURANTI". Como esta sección
+        debe funcionar con nombres reales de clientes de longitud
+        desconocida, break-words es la red de seguridad permanente, no
+        solo un ajuste puntual para esta palabra.
+      -->
+      <h3
+        data-work-title
+        class="font-display text-cloud mt-2 text-[clamp(2.1rem,9vw,6.5rem)] leading-[0.86] font-bold tracking-tight break-words uppercase"
+      >
+        {first.category}
+      </h3>
+      <p class="text-cloud-muted mt-5 max-w-md font-sans text-sm sm:text-base">
+        {first.description}
+      </p>
     </div>
   </div>
 
   {
-    /*
-      Segundo concepto: deliberadamente más pequeño y desplazado a la
-      derecha (no el mismo ancho de columna que el primero) — romper la
-      simetría "dos cards iguales" que hacía sentir la sección genérica.
-      Aquí sí conserva la barra de navegador: a escala de card, el mockup
-      literal vuelve a funcionar como referencia legible.
-    */
+    /* PROYECTO 02 — composición vertical, desplazada a la derecha; el
+       numeral vive fuera de la imagen, en el espacio negativo a la
+       izquierda — asimetría real frente al proyecto 01, no un espejo. */
   }
-  <div class="px-6 pt-10 pb-24 sm:px-10 sm:pb-32 lg:px-16">
-    <div class="flex justify-end">
-      <article class="w-full max-w-md">
-        <div class="border-cloud/10 overflow-hidden rounded-lg border">
-          <div
-            class="border-cloud/10 bg-ground-raised flex items-center gap-3 border-b px-4 py-2.5"
-          >
-            <div class="flex gap-1.5">
-              <span class="bg-cloud/20 h-2 w-2 rounded-full"></span>
-              <span class="bg-cloud/20 h-2 w-2 rounded-full"></span>
-              <span class="bg-cloud/20 h-2 w-2 rounded-full"></span>
-            </div>
-            <div class="border-cloud/10 bg-ground flex-1 rounded-full border px-3 py-1">
-              <span class="text-cloud-muted font-mono text-[11px]">{secondary.domain}</span>
-            </div>
-          </div>
-          <div
-            data-image-reveal
-            class="experiment-panel experiment-panel--raised relative flex aspect-[16/10] w-full items-center justify-center"
-          >
-            <SecondaryIcon class="text-cloud/25 h-16 w-16 sm:h-20 sm:w-20" stroke-width={1.25} />
-            <span
-              class="text-cloud/40 absolute bottom-4 left-1/2 -translate-x-1/2 font-mono text-[10px] tracking-[0.2em] uppercase"
-            >
-              Vista conceptual
-            </span>
-          </div>
-        </div>
+  <div class="px-6 pt-28 pb-24 sm:px-10 sm:pt-36 sm:pb-32 lg:px-16">
+    <div
+      class="grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.4fr)] lg:items-center lg:gap-10"
+    >
+      <div class="relative">
+        <span
+          data-work-numeral
+          class="numeral-outline numeral-outline--cloud text-[clamp(6rem,18vw,11rem)]"
+        >
+          {second.n}
+        </span>
+        <p
+          data-work-tag
+          class="text-gold-500 mt-2 font-mono text-xs tracking-[0.14em] uppercase lg:mt-6"
+        >
+          Concepto — {second.n}
+        </p>
+        <h3
+          data-work-title
+          class="font-display text-cloud mt-2 text-3xl leading-[0.95] font-bold tracking-tight break-words uppercase sm:text-4xl"
+        >
+          {second.category}
+        </h3>
+        <p class="text-cloud-muted mt-4 max-w-sm font-sans text-sm">{second.description}</p>
+      </div>
 
-        <div data-reveal class="mt-5">
-          <p class="text-gold-500 font-mono text-[11px] tracking-[0.12em] uppercase">
-            Concepto — {secondary.category}
-          </p>
-          <p class="text-cloud-muted mt-2 font-sans text-sm">{secondary.description}</p>
+      <div
+        data-work-panel
+        class="relative aspect-[4/5] w-full overflow-hidden sm:aspect-[3/4] lg:max-w-md lg:justify-self-end"
+      >
+        <div data-work-scale class="experiment-panel experiment-panel--raised absolute inset-0">
         </div>
-      </article>
+      </div>
     </div>
   </div>
 </section>

@@ -123,26 +123,25 @@ export const work = {
     'Estos son conceptos visuales: ejemplos del tipo de dirección que podemos crear para restaurantes, marcas y negocios locales. No son clientes de NOVA.',
   /**
    * No hay fotografía real de estos conceptos (NOVA no fabrica clientes ni
-   * proyectos falsos) — `icon` alimenta un placeholder visual explícito en
-   * vez de un panel de color sólido que se leería como "imagen rota" o
-   * espacio vacío. Ver `Work.astro`.
+   * proyectos falsos). Sin mockup de navegador ni ícono de categoría —
+   * `n` alimenta el numeral con contorno que es el protagonista visual
+   * del panel (ver `.numeral-outline` en global.css y `Work.astro`),
+   * un recurso gráfico propio en vez de un placeholder de UI kit.
    */
   experiments: [
     {
+      n: '01',
       category: 'Restaurante',
       description:
         'Sistema visual y estructura de sitio para un restaurante con reservaciones — foco en fotografía de producto y un menú fácil de escanear en móvil.',
-      domain: 'concepto-restaurante.nova',
       tone: 'gold' as const,
-      icon: 'utensils-crossed' as const,
     },
     {
+      n: '02',
       category: 'Servicios profesionales',
       description:
         'Sitio institucional para un negocio de servicios con múltiples sedes — jerarquía clara de información y un formulario de contacto que no se siente burocrático.',
-      domain: 'concepto-servicios.nova',
       tone: 'raised' as const,
-      icon: 'building-2' as const,
     },
   ],
 } as const;
