@@ -109,16 +109,7 @@ const [first, second] = work.experiments;
       class="grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.4fr)] lg:items-center lg:gap-10"
     >
       <div class="relative">
-        <span
-          data-work-numeral
-          class="numeral-outline numeral-outline--cloud text-[clamp(6rem,18vw,11rem)]"
-        >
-          {second.n}
-        </span>
-        <p
-          data-work-tag
-          class="text-gold-500 mt-2 font-mono text-xs tracking-[0.14em] uppercase lg:mt-6"
-        >
+        <p data-work-tag class="text-gold-500 font-mono text-xs tracking-[0.14em] uppercase">
           Concepto — {second.n}
         </p>
         <h3
@@ -130,11 +121,32 @@ const [first, second] = work.experiments;
         <p class="text-cloud-muted mt-4 max-w-sm font-sans text-sm">{second.description}</p>
       </div>
 
+      <!--
+        Panel con el mismo tratamiento que el Proyecto 01 (numeral con
+        contorno dentro del panel, esquina inferior, + degradado de
+        fondo): el numeral se movió aquí desde el espacio negativo
+        externo (donde vivía antes) para que el placeholder de imagen
+        tenga la misma presencia visual que el banner del restaurante,
+        en vez de verse como un rectángulo vacío con solo textura.
+      -->
       <div
         data-work-panel
         class="relative aspect-[4/5] w-full overflow-hidden sm:aspect-[3/4] lg:max-w-md lg:justify-self-end"
       >
-        <div data-work-scale class="experiment-panel experiment-panel--raised absolute inset-0">
+        <div
+          data-work-scale
+          class="experiment-panel experiment-panel--raised absolute inset-0 flex items-end justify-end p-4 sm:p-8"
+        >
+          <span
+            data-work-numeral
+            class="numeral-outline numeral-outline--cloud text-[clamp(6rem,18vw,11rem)]"
+          >
+            {second.n}
+          </span>
+        </div>
+        <div
+          class="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-[linear-gradient(to_top,var(--color-ground),transparent)]"
+        >
         </div>
       </div>
     </div>
