@@ -53,18 +53,5 @@ import { services } from '../../data/site';
         ))
       }
     </div>
-
-    <div
-      data-reveal
-      class="text-cloud-muted mt-10 flex flex-col gap-3 font-mono text-xs tracking-[0.06em] uppercase sm:flex-row sm:flex-wrap sm:gap-x-10"
-    >
-      {
-        services.manifesto.map((line) => (
-          <span>
-            <strong class="text-cloud">{line.strong}</strong> {line.rest}
-          </span>
-        ))
-      }
-    </div>
   </div>
 </section>

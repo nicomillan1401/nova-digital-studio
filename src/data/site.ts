@@ -93,11 +93,6 @@ export const services = {
       desc: 'Dejamos una base lista para campañas, reservas, ventas, contenido y nuevas etapas.',
     },
   ],
-  manifesto: [
-    { strong: 'NO PLANTILLAS.', rest: 'Una experiencia hecha para tu negocio.' },
-    { strong: 'NO RUIDO.', rest: 'Diseño con intención.' },
-    { strong: 'HECHO A MANO.', rest: 'Cada detalle, decidido a propósito.' },
-  ],
 } as const;
 
 /**

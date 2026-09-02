@@ -39,7 +39,15 @@
 
   --font-display: 'Unbounded Variable', ui-sans-serif, system-ui, sans-serif;
   --font-sans: 'Manrope Variable', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  /*
+    JetBrains Mono (no IBM Plex Mono, señalada como demasiado genérica):
+    comparte altura-x y legibilidad de pantalla con Manrope — misma
+    familia de intención, diseñada para código/UI, no para composición —
+    así que el registro mono se siente parte de la misma voz tipográfica
+    en vez de una fuente ajena pegada encima. Se usa en cada etiqueta y
+    numeral estructural del sitio (eyebrows, "01/WEB", footer, ticker).
+  */
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
 }
 
 html {
