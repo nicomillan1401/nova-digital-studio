@@ -7,17 +7,24 @@ import { services } from '../../data/site';
   numeral de cada servicio se vuelve gigante y fantasma (.ghost-numeral),
   el copy queda compacto y desplazado a la derecha — contraste de escala
   como estructura, no cuatro cajas iguales.
+
+  Sin eyebrow-tag aquí (a diferencia de una versión anterior): "Lo que
+  hacemos" era puramente redundante con el H2 de al lado — el mismo
+  dispositivo repetido en las 6 secciones del sitio sin aportar
+  información nueva es justo el patrón de "template" que se corrigió.
+  Padding vertical reducido y asimétrico (más arriba que abajo): la
+  sección termina en un border-b que ya señala el cierre, así que no
+  necesita el mismo aire abajo que arriba.
 -->
 <section id="servicios" class="border-cloud/10 border-t">
-  <div class="px-6 py-24 sm:px-10 sm:py-32 lg:px-16">
+  <div class="px-6 pt-20 pb-14 sm:px-10 sm:pt-28 sm:pb-20 lg:px-16">
     <div
       data-reveal-group
       class="border-cloud/10 flex flex-col gap-6 border-b pb-10 sm:flex-row sm:items-end sm:justify-between"
     >
       <div data-reveal-item>
-        <p class="eyebrow-tag">{services.eyebrow}</p>
         <h2
-          class="font-display text-cloud mt-4 text-4xl leading-[1.02] font-bold tracking-tight sm:text-6xl"
+          class="font-display text-cloud text-4xl leading-[1.02] font-bold tracking-tight sm:text-6xl"
         >
           {services.headline.map((line) => <span class="block">{line}</span>)}
         </h2>
@@ -27,30 +34,43 @@ import { services } from '../../data/site';
       </p>
     </div>
 
+    <!--
+      Las 4 filas comparten estructura (es una lista real, no debe variar
+      su lógica de lectura) pero NO son visualmente idénticas: la última
+      ("Growth Ready") lleva su título en dorado — no es un capricho
+      decorativo, es la fila que habla de resultado/crecimiento, el
+      puente temático hacia Trabajo y el CTA de cierre más abajo. Un
+      detalle con función editorial, no las 4 filas clonadas sin razón.
+    -->
     <div data-reveal-group>
       {
-        services.items.map((service) => (
-          <article
-            data-reveal-item
-            data-hover-card
-            class="group hover-glow border-cloud/10 grid grid-cols-12 items-center gap-x-4 border-b py-6 sm:py-8"
-          >
-            <span
-              aria-hidden="true"
-              class="ghost-numeral col-span-4 text-[clamp(3.5rem,9vw,7.5rem)] select-none sm:col-span-3"
+        services.items.map((service, i) => {
+          const isLast = i === services.items.length - 1;
+          return (
+            <article
+              data-reveal-item
+              data-hover-card
+              class="group hover-glow border-cloud/10 grid grid-cols-12 items-center gap-x-4 border-b py-6 sm:py-8"
             >
-              {service.n.split(' ')[0]}
-            </span>
+              <span
+                aria-hidden="true"
+                class="ghost-numeral col-span-4 text-[clamp(3.5rem,9vw,7.5rem)] select-none sm:col-span-3"
+              >
+                {service.n.split(' ')[0]}
+              </span>
 
-            <div class="col-span-8 sm:col-span-9">
-              <p class="text-cloud-muted font-mono text-[11px] tracking-[0.1em]">{service.n}</p>
-              <h3 class="font-display text-cloud mt-2 text-2xl font-semibold sm:text-3xl">
-                {service.title}
-              </h3>
-              <p class="text-cloud-muted mt-3 max-w-sm font-sans text-sm">{service.desc}</p>
-            </div>
-          </article>
-        ))
+              <div class="col-span-8 sm:col-span-9">
+                <p class="text-cloud-muted font-mono text-[11px] tracking-[0.1em]">{service.n}</p>
+                <h3
+                  class={`font-display mt-2 text-2xl font-semibold sm:text-3xl ${isLast ? 'text-gold-500' : 'text-cloud'}`}
+                >
+                  {service.title}
+                </h3>
+                <p class="text-cloud-muted mt-3 max-w-sm font-sans text-sm">{service.desc}</p>
+              </div>
+            </article>
+          );
+        })
       }
     </div>
   </div>

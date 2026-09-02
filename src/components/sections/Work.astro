@@ -19,15 +19,21 @@ const [first, second] = work.experiments;
   Sin CTA ni botón en esta sección: es puramente visual/editorial, sin
   nada que compita con la composición ni simule ser clickeable (no son
   casos reales, ver `work.intro` arriba).
+--><!--
+  Sin eyebrow-tag de sección aquí: "Conceptos" ya lo dice el propio
+  párrafo de intro debajo, y cada panel individual lleva su propia
+  etiqueta "Concepto" (distinta: esa sí cumple una función real —
+  distingue explícitamente que no son clientes reales). Padding superior
+  reducido: el gap heredado del final de Servicios ya da suficiente
+  separación, duplicarlo aquí solo sumaba aire sin propósito.
 -->
 <section id="trabajo" class="border-cloud/10 border-t">
-  <div class="px-6 pt-24 sm:px-10 sm:pt-32 lg:px-16">
+  <div class="px-6 pt-16 sm:px-10 sm:pt-20 lg:px-16">
     <div
       data-reveal
       class="border-cloud/10 flex flex-wrap items-end justify-between gap-4 border-b pb-8"
     >
       <div class="max-w-2xl">
-        <p class="eyebrow-tag">{work.eyebrow}</p>
         <h2
           class="font-display text-cloud mt-4 text-4xl leading-[1.05] font-bold tracking-tight sm:text-5xl"
         >
@@ -103,7 +109,7 @@ const [first, second] = work.experiments;
        degradado de fondo. Tono --raised (no --gold) y contenido propio
        son la única diferencia real entre ambos. */
   }
-  <div class="bleed-x relative mt-14 mb-24 sm:mt-16 sm:mb-32">
+  <div class="bleed-x relative mt-14 mb-16 sm:mt-16 sm:mb-20">
     <div data-work-panel class="relative aspect-[4/3] w-full overflow-hidden sm:aspect-[21/9]">
       <div
         data-work-scale

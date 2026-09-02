@@ -9,31 +9,52 @@ import { studio } from '../../data/site';
     ligado al scroll, no un timer). Va en un div separado del contenido
     de texto —no en la propia section— para que ningún párrafo tenga que
     sostener contraste legible a mitad de una transición de color; el
-    texto siempre vive sobre `bg-paper` sólido.
+    texto siempre vive sobre `bg-paper` sólido. Altura reducida de
+    18/26vh a 12/16vh: ya se sumaba al padding propio de la sección de
+    abajo, duplicando aire en la misma costura sin aportar más lectura
+    de la transición de color.
   */
 }
-<div data-scrub-bg aria-hidden="true" class="h-[18vh] sm:h-[26vh]"></div>
+<div data-scrub-bg aria-hidden="true" class="h-[12vh] sm:h-[16vh]"></div>
 
 <!--
   Único respiro claro del sitio: rompe el ritmo navy a propósito — el
   momento más humano/reflexivo del sitio también se presenta literalmente
-  distinto.
+  distinto. Los dos bloques de abajo (texto + pull-quote) antes tenían
+  cada uno su propio py-16/py-24 completo, duplicando el padding vertical
+  en la misma sección — consolidado a un ritmo asimétrico: el segundo
+  bloque parte de un border-t que ya señala la separación, así que no
+  necesita repetir el mismo aire de arriba.
 -->
 <section id="studio" class="bg-paper text-ink">
-  <div class="grid gap-12 px-6 py-16 sm:px-10 sm:py-24 lg:grid-cols-[1fr_1fr] lg:gap-16 lg:px-16">
+  <div class="grid gap-12 px-6 py-14 sm:px-10 sm:py-20 lg:grid-cols-[1fr_1fr] lg:gap-16 lg:px-16">
     <div data-reveal>
       <!-- eyebrow-tag--on-paper usa el mismo tono oklch(0.50 0.15 68) ya
            verificado en AA (5.5:1 sobre `paper` sólido a text-xs); el
            fondo/borde tintado que suma la etiqueta se re-verificó por
            separado (medición real en navegador, no solo cálculo) porque
-           el bloque de color detrás del texto ya no es paper puro. -->
+           el bloque de color detrás del texto ya no es paper puro. Se
+           mantiene aquí (a diferencia de las demás secciones) porque
+           cumple una función real: señala el cambio de modo — de "pitch
+           a un cliente" a "quiénes somos", justo cuando el fondo mismo
+           cambia de navy a papel.
+      -->
       <p class="eyebrow-tag eyebrow-tag--on-paper">{studio.eyebrow}</p>
       <h2
         class="font-display text-ink mt-6 text-[clamp(1.8rem,3.6vw,2.75rem)] leading-[1.08] font-bold tracking-tight"
       >
         {studio.headline}
         <br />
-        <span class="text-gold-700">{studio.headlineAccent}</span>
+        <!--
+          Sin recolorear la frase completa en dorado (el patrón de
+          "landing de IA" señalado explícitamente): mismo color `text-ink`
+          que la primera línea, con una línea estructural dorada debajo
+          en vez de relleno de color — reutiliza el mismo recurso gráfico
+          que ya usan la línea de progreso de Proceso y el borde superior
+          del panel de Trabajo, en vez de inventar un tratamiento nuevo
+          solo para este titular.
+        -->
+        <span class="border-gold-600 inline-block border-b-4 pb-1">{studio.headlineAccent}</span>
       </h2>
     </div>
 
@@ -56,7 +77,7 @@ import { studio } from '../../data/site';
       el resto del sitio, aplicado al único momento de calma tipográfica.
     */
   }
-  <div class="border-ink/10 border-t px-6 py-16 sm:px-10 sm:py-24 lg:px-16">
+  <div class="border-ink/10 border-t px-6 pt-12 pb-16 sm:px-10 sm:pt-16 sm:pb-24 lg:px-16">
     <blockquote
       data-reveal
       class="font-display text-ink max-w-4xl text-[clamp(1.75rem,4.4vw,3.25rem)] leading-[1.1] font-medium tracking-tight italic"

@@ -11,17 +11,22 @@ import { process } from '../../data/site';
   vivo en vez de cuatro etiquetas estáticas.
 -->
 <section id="proceso" class="border-cloud/10 border-t">
-  <div class="px-6 py-24 sm:px-10 sm:py-32 lg:px-16">
+  <div class="px-6 py-16 sm:px-10 sm:py-20 lg:px-16">
+    <!--
+      Sin eyebrow-tag: "Cómo trabajamos" era redundante con el propio H2
+      ("Del 'tengo una idea' al 'ya está online'") — la etiqueta no
+      agregaba información, solo repetía el mismo dispositivo visual de
+      cada otra sección.
+    -->
     <div data-reveal class="max-w-xl">
-      <p class="eyebrow-tag">{process.eyebrow}</p>
       <h2
-        class="font-display text-cloud mt-4 text-4xl leading-[1.02] font-bold tracking-tight sm:text-5xl"
+        class="font-display text-cloud text-4xl leading-[1.02] font-bold tracking-tight sm:text-5xl"
       >
         {process.headline.map((line) => <span class="block">{line}</span>)}
       </h2>
     </div>
 
-    <div data-progress-track class="relative mt-20">
+    <div data-progress-track class="relative mt-16">
       <div class="bg-cloud/10 absolute top-0 left-0 h-px w-full"></div>
       <div
         data-progress-fill
