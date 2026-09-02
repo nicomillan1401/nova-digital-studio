@@ -44,20 +44,12 @@ import { services } from '../../data/site';
               {service.n.split(' ')[0]}
             </span>
 
-            <div class="col-span-8 flex items-start justify-between gap-4 sm:col-span-9">
-              <div>
-                <p class="text-cloud-muted font-mono text-[11px] tracking-[0.1em]">{service.n}</p>
-                <h3 class="font-display text-cloud mt-2 text-2xl font-semibold sm:text-3xl">
-                  {service.title}
-                </h3>
-                <p class="text-cloud-muted mt-3 max-w-sm font-sans text-sm">{service.desc}</p>
-              </div>
-              <span
-                data-hover-icon
-                class="font-display text-gold-500 mt-1 inline-block shrink-0 text-2xl sm:text-3xl"
-              >
-                {service.icon}
-              </span>
+            <div class="col-span-8 sm:col-span-9">
+              <p class="text-cloud-muted font-mono text-[11px] tracking-[0.1em]">{service.n}</p>
+              <h3 class="font-display text-cloud mt-2 text-2xl font-semibold sm:text-3xl">
+                {service.title}
+              </h3>
+              <p class="text-cloud-muted mt-3 max-w-sm font-sans text-sm">{service.desc}</p>
             </div>
           </article>
         ))

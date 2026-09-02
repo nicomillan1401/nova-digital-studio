@@ -55,13 +55,6 @@ export const hero = {
     },
     { label: 'Ver conceptos', href: '#trabajo', variant: 'ghost' as const, external: false },
   ],
-  /** Franja de proceso en miniatura bajo los CTAs — anticipa la sección Proceso sin repetirla. */
-  meta: [
-    { n: '01', label: 'Estrategia' },
-    { n: '02', label: 'Diseño' },
-    { n: '03', label: 'Desarrollo' },
-    { n: '04', label: 'Lanzamiento' },
-  ],
 } as const;
 
 export const marqueeWords = [
@@ -81,25 +74,21 @@ export const services = {
   items: [
     {
       n: '01 / WEB',
-      icon: '↗',
       title: 'Web Design',
       desc: 'Diseño visual, estructura y experiencia pensados para que tu cliente entienda, confíe y actúe.',
     },
     {
       n: '02 / BRAND',
-      icon: '✦',
       title: 'Brand Experience',
       desc: 'Convertimos lo que hace especial a tu negocio en una identidad digital reconocible.',
     },
     {
       n: '03 / STRATEGY',
-      icon: '◎',
       title: 'Digital Strategy',
       desc: 'Ordenamos el mensaje, el contenido y los recorridos para que la web tenga un propósito.',
     },
     {
       n: '04 / GROWTH',
-      icon: '↗',
       title: 'Growth Ready',
       desc: 'Dejamos una base lista para campañas, reservas, ventas, contenido y nuevas etapas.',
     },
