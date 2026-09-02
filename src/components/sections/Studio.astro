@@ -22,14 +22,12 @@ import { studio } from '../../data/site';
 <section id="studio" class="bg-paper text-ink">
   <div class="grid gap-12 px-6 py-16 sm:px-10 sm:py-24 lg:grid-cols-[1fr_1fr] lg:gap-16 lg:px-16">
     <div data-reveal>
-      <!-- text-[oklch(...)] en vez de text-gold-700: a este tamaño de texto
-           (xs) gold-700 da 4.27:1 sobre `paper`, por debajo del mínimo AA de
-           4.5:1 para texto normal. Este tono más oscuro da 5.5:1. -->
-      <p
-        class="font-mono text-xs font-medium tracking-[0.2em] text-[oklch(0.50_0.15_68)] uppercase"
-      >
-        {studio.eyebrow}
-      </p>
+      <!-- eyebrow-tag--on-paper usa el mismo tono oklch(0.50 0.15 68) ya
+           verificado en AA (5.5:1 sobre `paper` sólido a text-xs); el
+           fondo/borde tintado que suma la etiqueta se re-verificó por
+           separado (medición real en navegador, no solo cálculo) porque
+           el bloque de color detrás del texto ya no es paper puro. -->
+      <p class="eyebrow-tag eyebrow-tag--on-paper">{studio.eyebrow}</p>
       <h2
         class="font-display text-ink mt-6 text-[clamp(1.8rem,3.6vw,2.75rem)] leading-[1.08] font-bold tracking-tight"
       >

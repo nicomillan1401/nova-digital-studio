@@ -67,7 +67,7 @@ export const marqueeWords = [
 ] as const;
 
 export const services = {
-  eyebrow: '01 / Lo que hacemos',
+  eyebrow: 'Lo que hacemos',
   headline: ['Una web que', 'trabaja por ti.'],
   intro:
     'Diseñamos la presencia digital completa de negocios que quieren dejar de parecer pequeños en internet. Desde la primera impresión hasta el botón de contacto.',
@@ -106,7 +106,7 @@ export const services = {
  * resultados inventados. Se presentan así, sin ambigüedad.
  */
 export const work = {
-  eyebrow: '02 / Conceptos',
+  eyebrow: 'Conceptos',
   headline: ['Así puede', 'verse tu marca.'],
   intro:
     'Estos son conceptos visuales: ejemplos del tipo de dirección que podemos crear para restaurantes, marcas y negocios locales. No son clientes de NOVA.',
@@ -136,7 +136,7 @@ export const work = {
 } as const;
 
 export const process = {
-  eyebrow: '03 / Cómo trabajamos',
+  eyebrow: 'Cómo trabajamos',
   headline: ['Del "tengo una idea"', 'al "ya está online".'],
   steps: [
     {
@@ -163,7 +163,7 @@ export const process = {
 } as const;
 
 export const studio = {
-  eyebrow: '04 / NOVA Studio',
+  eyebrow: 'NOVA Studio',
   headline: 'Tu negocio ya tiene algo que contar.',
   headlineAccent: 'Nosotros hacemos que se note.',
   paragraphs: [
@@ -174,7 +174,7 @@ export const studio = {
 } as const;
 
 export const contact = {
-  eyebrow: '05 / Empecemos',
+  eyebrow: 'Empecemos',
   headline: ['Tu próxima web', 'puede empezar hoy.'],
   sub: 'Escríbenos directamente por WhatsApp. Cuéntanos qué negocio tienes, qué quieres mejorar y qué tienes en mente.',
   buttonLabel: 'WhatsApp · +58 412 631 9354',

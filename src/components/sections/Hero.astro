@@ -4,11 +4,12 @@ import { hero } from '../../data/site';
 ---
 
 <!--
-  Portada editorial, no "hero centrado + 2 botones": el eyebrow y el
-  índice de página funcionan como masthead de revista (esquinas opuestas,
-  no apilados), y el titular corre a un ancho casi de viewport completo —
-  el contraste de escala entre el masthead diminuto y el titular gigante
-  es el primer "momento memorable" del sitio.
+  Portada editorial, no "hero centrado + 2 botones": el eyebrow como
+  etiqueta de marca y el titular a ancho casi de viewport completo — el
+  contraste de escala entre la etiqueta compacta y el titular gigante es
+  el primer "momento memorable" del sitio. Sin índice de página tipo
+  "N°01": era una enumeración decorativa sin función real, quitada de
+  aquí y de toda otra sección que la repetía (ver site.ts).
 -->
 <section id="inicio" class="relative overflow-hidden pt-28 pb-20 sm:pt-36 sm:pb-28">
   <div
@@ -18,11 +19,8 @@ import { hero } from '../../data/site';
   </div>
 
   <div class="relative px-6 sm:px-10 lg:px-16">
-    <div data-hero-item class="border-cloud/10 flex items-baseline justify-between border-b pb-4">
-      <p class="text-gold-500 font-mono text-xs font-medium tracking-[0.22em] uppercase">
-        {hero.eyebrow}
-      </p>
-      <p class="text-cloud-muted hidden font-mono text-xs tracking-[0.15em] sm:block">N°01</p>
+    <div data-hero-item>
+      <p class="eyebrow-tag">{hero.eyebrow}</p>
     </div>
 
     <h1
